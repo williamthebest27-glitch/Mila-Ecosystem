@@ -332,6 +332,28 @@ img { display: block; }
   transform: scale(1.1);
 }
 
+/* Ecosystem wordmark: each letter lifts and turns sage under the pointer.
+   Desktop only — `hover: hover` keeps it off touch devices that report a wide
+   viewport, where :hover would stick after a tap. */
+.eco-letter {
+  display: inline-block;
+  will-change: transform;
+}
+@media (min-width: 64rem) and (hover: hover) {
+  .eco-letter {
+    pointer-events: auto;
+    transition: transform 0.55s var(--ease-premium), color 0.55s var(--ease-premium);
+  }
+  .eco-letter:hover {
+    transform: translateY(-0.11em);
+    color: var(--color-sage);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eco-letter { transition: color 0.3s linear; }
+  .eco-letter:hover { transform: none; }
+}
+
 /* Expanding cards (ecosystem) */
 .card-panel {
   display: grid;

@@ -93,8 +93,9 @@ export function Hero() {
       if (header) tl.fromTo(header, { y: -72, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, clearProps: "transform,opacity,visibility" }, 1.05);
 
       // 4. Lede, buttons, features and bottom rail from below
+      const ctaAbove = window.matchMedia("(max-width: 63.98rem)").matches;
       tl.fromTo(q("[data-hero-lede]"), { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1 }, 1.45)
-        .fromTo(q("[data-hero-cta]"), { y: 48, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.12 }, 1.6)
+        .fromTo(q("[data-hero-cta]"), { y: 48, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.12 }, ctaAbove ? 0.5 : 1.6)
         .fromTo(q("[data-hero-feature]"), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 1.9)
         .fromTo(q("[data-hero-bottom]"), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 2.15)
         .fromTo(q("[data-hero-arch]"), { yPercent: 40, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 1.4 }, 1.85);
@@ -173,11 +174,14 @@ export function Hero() {
       <div className="container-x relative flex min-h-0 flex-col pb-10 pt-8 lg:h-[100svh] lg:justify-between lg:pb-[min(2rem,3svh)] lg:pt-[calc(var(--nav-h)+min(2.5rem,4svh))]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
           {/* Copy */}
-          <div className="lg:col-span-6 xl:col-span-6">
-            <p data-hero-label className="label">
+          {/* Below lg the two CTAs move above the headline (order-2), so the
+              primary actions sit near the top of the copy on a phone or
+              tablet. `lg:block` drops back to source order on desktop. */}
+          <div className="flex flex-col lg:block lg:col-span-6 xl:col-span-6">
+            <p data-hero-label className="label order-1">
               {hero.label}
             </p>
-            <h1 id="hero-title" className="display display-hero mt-5 text-ink lg:mt-[min(1.5rem,2.2svh)]">
+            <h1 id="hero-title" className="display display-hero order-3 mt-8 text-ink lg:mt-[min(1.5rem,2.2svh)]">
               <span data-hero-line className="block">
                 {hero.lines[0]}
               </span>
@@ -191,10 +195,10 @@ export function Hero() {
                 {hero.lines[2]}
               </span>
             </h1>
-            <p data-hero-lede className="lede mt-6 max-w-[32rem] lg:mt-[min(1.5rem,2.4svh)] lg:text-[min(1.2rem,2.3svh)] lg:leading-[1.45]">
+            <p data-hero-lede className="lede order-4 mt-6 max-w-[32rem] lg:mt-[min(1.5rem,2.4svh)] lg:text-[min(1.2rem,2.3svh)] lg:leading-[1.45]">
               {hero.lede}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3 lg:mt-[min(2rem,3svh)]">
+            <div className="order-2 mt-7 flex flex-wrap items-center gap-3 lg:mt-[min(2rem,3svh)]">
               <span data-hero-cta className="inline-block">
                 <Button to={hero.primary.to} variant="primary" size="lg">
                   {hero.primary.label}
@@ -208,7 +212,7 @@ export function Hero() {
             </div>
 
             {/* Feature trio */}
-            <ul className="mt-10 grid gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-ink/12 lg:mt-[min(2.5rem,3.6svh)]" aria-label="Cosa trovi">
+            <ul className="order-5 mt-10 grid gap-5 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-ink/12 lg:mt-[min(2.5rem,3.6svh)]" aria-label="Cosa trovi">
               {hero.features.map((f) => {
                 const Icon = ICONS[f.icon as keyof typeof ICONS];
                 return (

@@ -141,12 +141,20 @@ export function Ecosystem() {
 
         {/* Desktop stage */}
         <div data-eco-stage className="relative mt-16 hidden h-[min(88vh,820px)] lg:block">
+          {/* Split per letter so each one lifts and greens under the pointer.
+              The paragraph stays pointer-events-none and only the glyphs opt
+              back in, so the gaps around the word never steal hovers from the
+              figure cards orbiting it. */}
           <p
             data-eco-word
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(4rem,9.2vw,9rem)] font-medium leading-none tracking-[-0.06em] text-ink"
           >
-            {ecosystem.word}
+            {Array.from(ecosystem.word).map((ch, i) => (
+              <span key={i} className="eco-letter">
+                {ch}
+              </span>
+            ))}
           </p>
 
           {NODES.map((n, i) => (
