@@ -165,14 +165,14 @@ export function Hero() {
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/25 to-transparent lg:bg-gradient-to-r lg:from-ivory lg:via-ivory/40 lg:via-30% lg:to-transparent lg:to-60%" />
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ivory/70 to-transparent" />
 
-        {/* Handwritten accent. Below lg it is centred across the photograph
-            instead of pinned to the corner; the wrapper owns the placement so
-            GSAP is free to transform the paragraph itself. */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 lg:left-auto lg:right-[7%] lg:top-[16%] lg:translate-x-0 lg:translate-y-0">
+        {/* Handwritten accent. Below lg it sits centre-left over the
+            photograph instead of pinned to the top corner; the wrapper owns the
+            placement so GSAP is free to transform the paragraph itself. */}
+        <div className="pointer-events-none absolute left-[6%] top-1/2 w-max -translate-y-1/2 lg:left-auto lg:right-[7%] lg:top-[16%] lg:translate-y-0">
           <p
             data-hero-float
             data-hero-script
-            className="script rotate-[-8deg] text-center text-[clamp(1.6rem,3vw,2.75rem)] text-ink lg:text-right lg:text-[#8a6a4e]"
+            className="script rotate-[-8deg] text-left text-[clamp(1.6rem,3vw,2.75rem)] text-[#8a6a4e] lg:text-right"
             aria-hidden="true"
           >
             {hero.script.map((l) => (
@@ -180,7 +180,7 @@ export function Hero() {
                 {l}
               </span>
             ))}
-            <svg viewBox="0 0 160 12" className="mx-auto mt-1 h-3 w-32 lg:mr-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+            <svg viewBox="0 0 160 12" className="mr-auto mt-1 h-3 w-32 lg:ml-auto lg:mr-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
               <path d="M2 8c30-6 60-6 90-4s45 2 66 0" />
             </svg>
           </p>
