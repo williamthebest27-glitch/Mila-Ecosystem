@@ -1,0 +1,461 @@
+/**
+ * All copy on the homepage lives here. Every string was taken from the
+ * current Mila Ecosystem homepage; nothing factual was altered.
+ */
+
+export const routes = {
+  home: "/",
+  percorsi: "/percorsi",
+  call: "/percorsi#call-iniziale",
+  community: "/community",
+  chiSono: "/chi-sono",
+  blog: "/blog",
+  risorse: "/risorse",
+  dashboard: "/dashboard",
+  login: "/login",
+  quiz: "/quiz",
+  lettera: "/blog/lettera-a-mia-nonna",
+  libreria: "/libreria",
+  viaggi: "/viaggi",
+  business: "/business",
+  bacheca: "/bacheca",
+  eventi: "/eventi",
+  collaborazioni: "/collaborazioni",
+  feedback: "/feedback",
+} as const;
+
+export const nav = {
+  primary: [
+    { label: "Percorsi", to: routes.percorsi },
+    { label: "Community", to: routes.community },
+    { label: "Chi sono", to: routes.chiSono },
+    { label: "Blog", to: routes.blog },
+    { label: "Risorse", to: routes.risorse },
+  ],
+  secondary: [
+    { label: "Area personale", to: routes.dashboard },
+    { label: "Accedi", to: routes.login },
+  ],
+  cta: { label: "Prenota la call", to: routes.call },
+};
+
+export const hero = {
+  label: "Mila Ecosystem · Empowerment femminile",
+  lines: ["Ritrova la tua forza.", "Costruisci la tua indipendenza.", "Torna a scegliere te stessa."],
+  lede:
+    "Un ecosistema digitale di percorsi, strumenti e community per donne che vogliono vivere con più autenticità, profondità e direzione.",
+  ledeSecondary:
+    "Uno spazio pensato per accompagnarti passo dopo passo a ritrovare il tuo centro e costruire una vita più vicina a ciò che senti davvero tuo.",
+  primary: { label: "Scopri i percorsi", to: routes.percorsi },
+  secondary: { label: "Prenota la call iniziale", to: routes.call },
+  imageAlt: "Donne e bambine di tutte le età e culture, unite in un cerchio di comunità",
+  photoAlt: "Una donna a occhi chiusi, il viso rivolto al sole, i capelli e un tessuto chiaro mossi dal vento sulla costa",
+  script: ["Più consapevoli", "Più libere", "Più noi"],
+  video: { label: ["Scopri Mila", "in 1 minuto"], to: "/chi-sono" },
+  features: [
+    { icon: "users", text: ["Una community", "che ti sostiene"] },
+    { icon: "sprout", text: ["Percorsi di crescita", "reali e concreti"] },
+    { icon: "sparkles", text: ["Strumenti per la tua", "indipendenza"] },
+  ],
+  proof: {
+    avatars: ["/images/avatar-1.webp", "/images/avatar-2.webp", "/images/avatar-3.webp", "/images/avatar-4.webp"],
+    text: "Migliaia di donne stanno già costruendo la loro nuova vita con Mila",
+  },
+  scroll: ["Scroll", "per scoprire"],
+  tagline: ["Un futuro più autentico", "è possibile"],
+};
+
+export const manifesto = {
+  label: "Cos'è Mila Ecosystem",
+  headline: "Un ecosistema per migliorarti a 360°.",
+  statement:
+    "Mila Ecosystem è uno spazio digitale che cresce nel tempo, costruito attorno alle aree su cui ogni donna dovrebbe poter lavorare: mente, corpo e indipendenza economica.",
+  highlights: ["mente", "corpo", "indipendenza", "economica"],
+  footnote: "Per ogni area trovi risorse gratuite, percorsi in autonomia e percorsi personalizzati.",
+};
+
+export type Figure = {
+  name: string;
+  role: string;
+  points: string[];
+};
+
+export type Area = {
+  index: string;
+  slug: string;
+  title: string;
+  tagline: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  figures: Figure[];
+};
+
+export const areas: Area[] = [
+  {
+    index: "01",
+    slug: "mindset",
+    title: "Mindset & crescita personale",
+    tagline: "La base di tutto.",
+    description: "Il punto da cui parte ogni cambiamento. Qui ti accompagno io, Mila, come mentore e coach.",
+    image: "/images/coaching.webp",
+    imageAlt: "Due giovani donne sedute una di fronte all'altra in uno spazio caldo e minimal, candela accesa e piante intorno",
+    figures: [
+      {
+        name: "Percorso con Mila",
+        role: "Mentore & coach di crescita personale",
+        points: [
+          "Sessioni 1:1 di coaching personalizzato",
+          "Percorsi di gruppo a tema (fiducia, confini, direzione)",
+          "Diario guidato, meditazioni e pratiche quotidiane",
+          "Strumenti per gestire ansia, autosabotaggio, scelte difficili",
+        ],
+      },
+    ],
+  },
+  {
+    index: "02",
+    slug: "corpo",
+    title: "Corpo & benessere",
+    tagline: "Tornare ad abitarsi.",
+    description:
+      "Riconnetterti al tuo corpo con specialiste selezionate. Niente performance, niente forzature: figure dedicate che lavorano in sinergia.",
+    image: "/images/garden-circle.webp",
+    imageAlt: "Cerchio di donne e bambine di culture diverse in un giardino fiorito",
+    figures: [
+      {
+        name: "Fitness coach & Personal trainer",
+        role: "Specialista del movimento al femminile",
+        points: [
+          "Allenamento personalizzato per livello e obiettivi",
+          "Programmi calibrati sulle fasi del ciclo",
+          "Mobilità, postura e ritorno al movimento dopo pause lunghe",
+          "Allenamenti in autonomia o seguita 1:1",
+        ],
+      },
+      {
+        name: "Nutrizionista",
+        role: "Esperta di alimentazione femminile",
+        points: [
+          "Piani alimentari su misura, senza diete punitive",
+          "Rapporto sereno con il cibo e con il corpo",
+          "Nutrizione per ciclo, gravidanza e menopausa",
+          "Educazione alimentare e abitudini sostenibili",
+        ],
+      },
+      {
+        name: "Psicologa",
+        role: "Sostegno emotivo e mentale",
+        points: [
+          "Spazio sicuro per ascoltarti davvero",
+          "Lavoro su ansia, autostima e relazioni",
+          "Percorsi brevi mirati o supporto continuativo",
+          "Sguardo clinico, mai giudicante",
+        ],
+      },
+    ],
+  },
+  {
+    index: "03",
+    slug: "indipendenza",
+    title: "Indipendenza economica",
+    tagline: "La tua libertà concreta.",
+    description:
+      "Tre strade distinte, in base al punto in cui ti trovi: prima capire dove vai, poi imparare a fare da te o farti affiancare dal mio team.",
+    image: "/images/community-circle-crop.webp",
+    imageAlt: "Donne di età diverse che si sorridono in un giardino di pietra e rose",
+    figures: [
+      {
+        name: "Coaching business con Mila",
+        role: "Per capire come muoverti",
+        points: [
+          "Trovare la tua direzione professionale",
+          "Validare un'idea o riposizionarti",
+          "Mindset imprenditoriale e gestione delle paure",
+          "Strategia personalizzata sul tuo punto di partenza",
+        ],
+      },
+      {
+        name: "Triskell Academy",
+        role: "Impari a fare da te",
+        points: [
+          "Corsi di marketing digitale step-by-step",
+          "Intelligenza artificiale applicata al business",
+          "Personal branding e contenuti che convertono",
+          "Community di studentesse e supporto continuo",
+        ],
+      },
+      {
+        name: "Triskell Agency",
+        role: "Lo facciamo noi per te",
+        points: [
+          "Strategia marketing & gestione contenuti",
+          "Lancio prodotti, funnel e advertising",
+          "Identità di marca e siti web",
+          "Deleghi e ti concentri sulla tua zona di genio",
+        ],
+      },
+    ],
+  },
+];
+
+export const ecosystem = {
+  label: "L'ecosistema",
+  word: "Ecosistema",
+  intro: "Tre aree. Sette figure. Un unico spazio che cresce con te.",
+  levels: ["Risorse gratuite", "Percorsi in autonomia", "Percorsi personalizzati"],
+  expansion:
+    "È un ecosistema che si espanderà nel tempo: nuove aree, strumenti e persone si aggiungeranno per accompagnarti in qualunque fase.",
+  primary: { label: "Esplora i percorsi", to: routes.percorsi },
+  secondary: { label: "Risorse gratuite", to: routes.risorse },
+};
+
+export const story = {
+  label: "La storia che ci muove",
+  title: ["La storia di mia nonna,", "a cui dedico tutto questo."],
+  paragraphs: [
+    "Mi chiamo Martina Mila Montanelli e Mila era il nome di mia nonna. In realtà si chiamava Mariangela: ma all'epoca, in chiesa, non poterono battezzarla con quel nome. Così la chiamarono Mila — e per tutta la vita si è girata solo sentendo questo nome, che sentiva più suo.",
+    "Ha passato l'infanzia a prendersi cura di sua sorella più piccola, in una famiglia dignitosa ma severa. Ha studiato sempre, perché lo studio era la sua libertà — è da lei che ho ereditato questa passione.",
+    "Negli anni '60, in un paesino di montagna, ha lasciato un primo matrimonio rovinoso e si è cresciuta una figlia da sola. Senza patente, senza rete, facendo la maestra. La ricordano ancora con tanto amore.",
+    "Ha dedicato la vita agli altri. E nonostante tutto, è morta triste — di una depressione silenziosa che nessuno è riuscito davvero a tenere.",
+  ],
+  closing: "Mila Ecosystem nasce per onorarla. E per dire a ogni donna:",
+  pull: "non combattere da sola guerre che non sono tue. Cura te stessa adesso, non aspettare che sia troppo tardi.",
+  cta: { label: "Leggi la lettera completa", to: routes.lettera },
+  image: "/images/founder-story.webp",
+  imageAlt: "Le mani di una nonna che tiene la mano di una bambina, in toni verdi",
+};
+
+export const forYou = {
+  label: "Per chi è Mila",
+  title: "Forse Mila è per te se…",
+  lede: "Ti riconosci anche solo in una di queste frasi? Allora siamo nel posto giusto.",
+  primary: { label: "Scopri se fa per te", to: routes.quiz },
+  secondary: { label: "Prenota una call", to: routes.call },
+  phrases: [
+    "Vuoi staccarti emotivamente da una persona che continua a occupare troppo spazio dentro di te.",
+    "Vuoi ritrovare stabilità emotiva dopo un periodo in cui ti sei sentita persa, confusa o svuotata.",
+    "Vuoi costruire la tua indipendenza economica e sentirti finalmente più libera nelle tue scelte.",
+    "Vuoi rimettere ordine nella tua vita, nei tuoi pensieri, nelle tue abitudini e nelle tue priorità.",
+    "Vuoi semplicemente parlare con qualcuno che ti ascolti davvero, senza giudicarti.",
+    "Vuoi confrontarti con altre donne che stanno vivendo un percorso simile al tuo.",
+    "Vuoi sentirti parte di una community in cui non devi fingere di stare sempre bene.",
+    "Vuoi iniziare un percorso personalizzato che tenga conto di chi sei, non solo di ciò che vuoi ottenere.",
+    "Vuoi migliorare il rapporto con il tuo corpo e smettere di guardarti sempre con occhi critici.",
+    "Vuoi sentirti più sicura, più centrata e più in contatto con la tua energia femminile.",
+    "Vuoi riconoscere quei meccanismi mentali che ti bloccano, ti autosabotano o ti fanno ripetere sempre gli stessi schemi.",
+    "Vuoi imparare a scegliere te stessa senza sentirti in colpa.",
+    "Vuoi smettere di rincorrere persone, conferme o situazioni che non ti nutrono più.",
+    "Vuoi tornare a fidarti della tua intuizione e della tua voce interiore.",
+    "Vuoi creare una vita più allineata ai tuoi desideri, ai tuoi valori e al tuo modo di essere.",
+    "Vuoi lasciar andare il bisogno di controllare tutto e imparare a sentirti più stabile dentro.",
+    "Vuoi liberarti dal peso del giudizio degli altri e iniziare a vivere con più autenticità.",
+    "Vuoi trasformare un momento difficile in un'occasione per conoscerti meglio.",
+    "Vuoi sentirti accompagnata in un percorso di crescita personale, emotiva e femminile.",
+    "Vuoi smettere di sentirti sola mentre provi a cambiare la tua vita.",
+    "Vuoi ritrovare la tua forza, ma senza indurirti.",
+    "Vuoi imparare ad amarti senza dover diventare qualcun'altra.",
+    "Vuoi tornare a sentirti donna, libera, presente e padrona della tua vita.",
+  ],
+};
+
+export const community = {
+  label: "Community",
+  title: "Tu non sei sola.",
+  lede:
+    "Donne di ogni età e provenienza che si parlano, si ascoltano e si scelgono. Senza vetrine, senza giudizio: solo presenza, ascolto e parole vere — per camminare accanto, una accanto all'altra.",
+  footnote: "Donne dai 17 ai 62 anni. Storie diverse: relazioni, maternità, business, rinascite. Ognuna con la sua voce.",
+  cta: { label: "Entra nella community", to: routes.community },
+  images: [
+    { src: "/images/hero-circle.webp", alt: "Donne e bambine di tutte le età e culture, unite in un cerchio di comunità" },
+    { src: "/images/community-circle.webp", alt: "Donne di generazioni diverse in un giardino di pietra e rose al tramonto" },
+    { src: "/images/garden-circle.webp", alt: "Cerchio di donne e bambine di culture diverse in un giardino fiorito" },
+    { src: "/images/coaching-square.webp", alt: "Due donne che parlano sedute su un divano, in uno spazio caldo e luminoso" },
+    { src: "/images/hero-circle-portrait.webp", alt: "Ritratto di donne e bambine di età e culture diverse" },
+  ],
+};
+
+export type Testimonial = {
+  name: string;
+  age: number;
+  quote: string;
+  note: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Aurora",
+    age: 17,
+    quote:
+      "Avevo paura di tutto. Della scuola, di mia mamma, di me. Ho iniziato a scrivere il diario qui dentro e a parlare con le altre ragazze… e oggi non mi vergogno più di prendere spazio. Sembra poco. Per me è tutto.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Sofia",
+    age: 23,
+    quote:
+      "Sono uscita da una relazione tossica durata quattro anni. Non ce l'avrei mai fatta da sola — la community e i percorsi di Martina mi hanno tenuta in piedi quando le mie gambe non bastavano. Adesso vivo da sola e respiro.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Giorgia",
+    age: 29,
+    quote:
+      "Ho studiato nell'academy di marketing e in sei mesi ho lanciato il mio piccolo brand. Non è un'azienda da copertina: è la mia, e mi paga l'affitto. Per la prima volta nella vita.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Valentina",
+    age: 34,
+    quote:
+      "Diventare mamma mi ha disintegrata e ricomposta. Quando ho capito che non mi riconoscevo più, ho scelto di fare il percorso 1:1. Oggi sono ancora mamma, ma sono tornata anche donna.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Camilla",
+    age: 38,
+    quote:
+      "Avevo già una mia attività, ma stagnante. Ho delegato la parte marketing all'agenzia di Martina e in cinque mesi ho triplicato i clienti. Finalmente lavoro nella mia azienda, non per la mia azienda.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Anna",
+    age: 47,
+    quote:
+      "Dopo vent'anni di matrimonio mi sono separata. A 47 anni. Senza partita IVA, senza un'idea, senza coraggio. Mila mi ha presa per mano. Ho aperto la mia attività un anno dopo. Sono viva.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Federica",
+    age: 54,
+    quote:
+      "Pensavo che la spiritualità fosse roba da guru. Qui ho trovato qualcosa di laico, gentile, vero. Medito ogni mattina da otto mesi e mio marito dice che sembro un'altra persona. Lo confermo.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+  {
+    name: "Marisa",
+    age: 62,
+    quote:
+      "Ho conosciuto Mila Ecosystem da mia figlia. Pensavo non fosse per me, alla mia età. Mi sbagliavo. Ho ricominciato a camminare, a leggere, a chiedermi cosa voglio davvero. Non è mai troppo tardi.",
+    note: "Storia vera, raccontata con le sue parole",
+  },
+];
+
+/** Facts already present on the homepage, expressed as numbers. */
+export const impact = {
+  label: "L'ecosistema in numeri",
+  items: [
+    { value: 3, suffix: "", caption: "aree di lavoro: mente, corpo e indipendenza economica" },
+    { value: 7, suffix: "", caption: "figure specialiste al tuo fianco, in sinergia" },
+    { value: 6, suffix: "", caption: "risorse gratuite per iniziare subito" },
+    { value: 45, suffix: "min", caption: "di call iniziale gratuita, in videocall" },
+    { value: 62, prefix: "17–", suffix: "", caption: "anni: l'età delle donne della community" },
+  ],
+};
+
+export type Resource = {
+  kind: string;
+  meta: string;
+  title: string;
+  description: string;
+};
+
+export const resources = {
+  label: "Risorse gratuite",
+  title: "Inizia subito, gratis.",
+  lede: "Mini guide, audio, meditazioni e quiz per assaggiare l'approccio di Mila prima di intraprendere un percorso.",
+  cta: { label: "Scarica gratis", to: routes.risorse },
+  all: { label: "Tutte le risorse", to: routes.risorse },
+  items: [
+    { kind: "E-book", meta: "12 pagine", title: "5 passi per l'empowerment quotidiano", description: "Una mini guida pratica per mettere te al centro della giornata." },
+    { kind: "Checklist", meta: "1 pagina", title: "Checklist per ritrovare direzione", description: "Le 10 domande che ogni donna dovrebbe farsi due volte all'anno." },
+    { kind: "Audio", meta: "8 minuti", title: "Audio motivazionale del mattino", description: "Una voce calma per iniziare con intenzione." },
+    { kind: "Audio", meta: "12 minuti", title: "Meditazione guidata: tornare al corpo", description: "Un rientro dolce, senza forzature." },
+    { kind: "Quiz", meta: "5 minuti", title: "Scopri la tua area di crescita prioritaria", description: "Il quiz di autovalutazione di Mila." },
+    { kind: "Video", meta: "5 minuti", title: "Come iniziare il tuo percorso di indipendenza", description: "Una lezione introduttiva gratuita." },
+  ] satisfies Resource[],
+};
+
+export const call = {
+  label: "Il primo passo",
+  title: ["Prenota la tua", "call iniziale con me."],
+  lede:
+    "Una conversazione vera, dove ti ascolto. Da lì capiamo insieme dove sei e che tipo di percorso costruire — anche personalizzato — per te.",
+  facts: ["45 minuti", "In videocall", "Gratuita"],
+  agendaTitle: "Cosa vediamo insieme",
+  agenda: [
+    { title: "Dove sei adesso", text: "Mi racconti il momento che stai vivendo, senza filtri." },
+    { title: "Cosa vorresti cambiare", text: "Mettiamo a fuoco insieme il vero punto di partenza." },
+    { title: "Quale strada è la tua", text: "Capiamo quali aree dell'ecosistema sono più utili per te ora." },
+    { title: "Il prossimo passo", text: "Decidiamo insieme se e come continuare. Senza obblighi." },
+  ],
+  cta: { label: "Prenota ora la tua call", to: routes.call },
+  image: "/images/martina-call.webp",
+  imageAlt: "Martina al telefono — call iniziale",
+};
+
+export const together = {
+  label: "Costruiamo insieme",
+  title: ["Questo non è un progetto", "che costruisco da sola."],
+  text:
+    "Mila Ecosystem è un mondo che voglio costruire insieme a voi: un mondo digitale, che presto si traslerà anche nel fisico, ma che è un posto che dobbiamo costruire assieme.",
+  pull: "Non sono io la leader: voi pensate, io costruisco.",
+  feedback: {
+    title: "Il tuo parere conta davvero",
+    text: "Un breve modulo anonimo per aiutarmi a costruire le prossime sezioni dell'ecosistema insieme a te.",
+    cta: { label: "Apri il modulo", to: routes.feedback },
+  },
+};
+
+export const thoughts = {
+  label: "Pensieri da portare con te",
+  quotes: [
+    "Non chiedere il permesso di esistere a chi non ha mai imparato a guardarti davvero.",
+    "La libertà non è un colpo di scena. È una serie di piccoli sì che dici a te stessa.",
+    "Sei nata per essere un'origine, non un'eco.",
+    "Quando smetti di tradurti per gli altri, finalmente ti capisci.",
+    "La forza di una donna non è non cadere mai. È rialzarsi senza scusarsi.",
+    "Non sei in ritardo sulla tua vita. Sei l'unica orologiaia di te stessa.",
+    "Ogni confine che metti è una carezza che fai a chi sarai domani.",
+    "Le radici delle donne che ti hanno preceduto sono ora le tue ali.",
+  ],
+};
+
+export const finalCta = {
+  lines: ["Torna a", "scegliere", "te stessa."],
+  lede: "Il primo passo è una conversazione. Gratuita, senza obblighi.",
+  primary: { label: "Prenota la call iniziale", to: routes.call },
+  secondary: { label: "Scopri i percorsi", to: routes.percorsi },
+};
+
+export const footer = {
+  tagline:
+    "Un ecosistema digitale per donne che vogliono ritrovare forza, indipendenza e autenticità. Percorsi, community, corsi, viaggi e una guida concreta al tuo fianco.",
+  explore: [
+    { label: "Home", to: routes.home },
+    { label: "Percorsi", to: routes.percorsi },
+    { label: "Community", to: routes.community },
+    { label: "Chi sono", to: routes.chiSono },
+    { label: "Blog", to: routes.blog },
+    { label: "Risorse gratuite", to: routes.risorse },
+  ],
+  ecosystem: [
+    { label: "Libreria", to: routes.libreria },
+    { label: "Viaggi", to: routes.viaggi },
+    { label: "Business", to: routes.business },
+    { label: "Bacheca", to: routes.bacheca },
+    { label: "Eventi", to: routes.eventi },
+    { label: "Collaborazioni", to: routes.collaborazioni },
+    { label: "Feedback", to: routes.feedback },
+  ],
+  account: [
+    { label: "Area personale", to: routes.dashboard },
+    { label: "Accedi", to: routes.login },
+  ],
+  social: [
+    { label: "Instagram", href: "#" },
+    { label: "Email", href: "#" },
+  ],
+  copyright: "© 2026 Mila Ecosystem · Tutti i diritti riservati",
+  disclaimer: "Questo spazio non sostituisce percorsi medici, terapeutici o specialistici.",
+};
