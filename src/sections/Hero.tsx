@@ -67,6 +67,10 @@ export function Hero() {
       // Built paused: `fromTo` still renders its start values immediately, so
       // the hero sits hidden under the intro screen and only plays once the
       // intro hands over. See lib/intro.
+      // Below lg the copy is re-ordered and the handwritten line is centred, so
+      // a couple of cues land at different points in the sequence there.
+      const stacked = window.matchMedia("(max-width: 63.98rem)").matches;
+      const script = q<HTMLElement>("[data-hero-script]")[0];
       const tl = gsap.timeline({ defaults: { ease: "premium" }, paused: true });
       const idle: gsap.core.Tween[] = [];
 
@@ -86,19 +90,27 @@ export function Hero() {
       tl.fromTo(q("[data-hero-label]"), { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1 }, 0.1)
         .fromTo(q("[data-hero-line]"), { x: -90, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.3, stagger: 0.13 }, 0.2);
 
-      // 2. Floating cards from the right
-      tl.fromTo(q("[data-hero-float]"), { x: 70, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.3, stagger: 0.16 }, 0.75);
+      // 2. Floating cards from the right — minus the handwritten line below
+      //    lg, which is held back to close the sequence.
+      const floats = q<HTMLElement>("[data-hero-float]");
+      const drifting = stacked && script ? floats.filter((el) => el !== script) : floats;
+      tl.fromTo(drifting, { x: 70, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.3, stagger: 0.16 }, 0.75);
 
       // 3. Navbar from the top
       if (header) tl.fromTo(header, { y: -72, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, clearProps: "transform,opacity,visibility" }, 1.05);
 
       // 4. Lede, buttons, features and bottom rail from below
-      const ctaAbove = window.matchMedia("(max-width: 63.98rem)").matches;
       tl.fromTo(q("[data-hero-lede]"), { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1 }, 1.45)
-        .fromTo(q("[data-hero-cta]"), { y: 48, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.12 }, ctaAbove ? 0.5 : 1.6)
+        .fromTo(q("[data-hero-cta]"), { y: 48, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.12 }, stacked ? 0.5 : 1.6)
         .fromTo(q("[data-hero-feature]"), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 1.9)
         .fromTo(q("[data-hero-bottom]"), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 2.15)
         .fromTo(q("[data-hero-arch]"), { yPercent: 40, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 1.4 }, 1.85);
+
+      // 5. Below lg the handwritten line closes the hero, once everything else
+      //    has settled.
+      if (stacked && script) {
+        tl.fromTo(script, { autoAlpha: 0, scale: 0.88, y: 16 }, { autoAlpha: 1, scale: 1, y: 0, duration: 1.15 }, 2.95);
+      }
 
       // Perpetual gentle floating for the three cards, each on its own rhythm
       q<HTMLElement>("[data-hero-float]").forEach((el, i) => {
@@ -111,7 +123,7 @@ export function Hero() {
             ease: "sine.inOut",
             yoyo: true,
             repeat: -1,
-            delay: 2.15 + i * 0.4,
+            delay: (stacked && el === script ? 4.3 : 2.15) + i * 0.4,
             paused: true,
           }),
         );
@@ -153,21 +165,26 @@ export function Hero() {
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/25 to-transparent lg:bg-gradient-to-r lg:from-ivory lg:via-ivory/40 lg:via-30% lg:to-transparent lg:to-60%" />
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ivory/70 to-transparent" />
 
-        {/* Handwritten accent */}
-        <p
-          data-hero-float
-          className="script pointer-events-none absolute right-[6%] top-[14%] rotate-[-8deg] text-right text-[clamp(1.6rem,3vw,2.75rem)] text-[#8a6a4e] lg:right-[7%] lg:top-[16%]"
-          aria-hidden="true"
-        >
-          {hero.script.map((l) => (
-            <span key={l} className="block">
-              {l}
-            </span>
-          ))}
-          <svg viewBox="0 0 160 12" className="ml-auto mt-1 h-3 w-32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-            <path d="M2 8c30-6 60-6 90-4s45 2 66 0" />
-          </svg>
-        </p>
+        {/* Handwritten accent. Below lg it is centred across the photograph
+            instead of pinned to the corner; the wrapper owns the placement so
+            GSAP is free to transform the paragraph itself. */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 w-max -translate-x-1/2 -translate-y-1/2 lg:left-auto lg:right-[7%] lg:top-[16%] lg:translate-x-0 lg:translate-y-0">
+          <p
+            data-hero-float
+            data-hero-script
+            className="script rotate-[-8deg] text-center text-[clamp(1.6rem,3vw,2.75rem)] text-ink lg:text-right lg:text-[#8a6a4e]"
+            aria-hidden="true"
+          >
+            {hero.script.map((l) => (
+              <span key={l} className="block">
+                {l}
+              </span>
+            ))}
+            <svg viewBox="0 0 160 12" className="mx-auto mt-1 h-3 w-32 lg:mr-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+              <path d="M2 8c30-6 60-6 90-4s45 2 66 0" />
+            </svg>
+          </p>
+        </div>
         <p className="sr-only">{hero.script.join(". ")}</p>
       </div>
 
