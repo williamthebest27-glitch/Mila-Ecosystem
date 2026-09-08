@@ -1,6 +1,5 @@
 import { areas } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
-import { useReveal } from "@/hooks/useGsap";
 
 /**
  * 05 — Pillars as vertical storytelling. Desktop: a sticky stage where the
@@ -49,9 +48,42 @@ export function Pillars() {
       // Progress bar
       tl.fromTo(bar, { scaleY: 1 / n }, { scaleY: 1, duration: n }, 0);
     });
-  });
 
-  const mobileRef = useReveal<HTMLDivElement>();
+    // Below lg the sticky stage is replaced by a stacked narrative, which the
+    // generic [data-reveal] fade left looking flat next to it. Each article
+    // now composes itself: the index rises, the tagline slides in, the photo
+    // wipes up while its image un-zooms, then the copy staggers in. The photo
+    // also drifts as the article passes, so the block is never quite still.
+    mm.add("(max-width: 63.98rem) and (prefers-reduced-motion: no-preference)", () => {
+      q<HTMLElement>("[data-p-m-article]").forEach((article) => {
+        const pick = <T extends HTMLElement>(sel: string) => article.querySelector<T>(sel);
+        const figure = pick("[data-p-m-fig]");
+        const image = pick<HTMLImageElement>("[data-p-m-fig] img");
+        const items = article.querySelectorAll<HTMLElement>("[data-p-m-item]");
+
+        gsap
+          .timeline({
+            defaults: { ease: "premium" },
+            scrollTrigger: { trigger: article, start: "top 80%", once: true },
+          })
+          .fromTo(pick("[data-p-m-num]"), { yPercent: 45, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.95 }, 0)
+          .fromTo(pick("[data-p-m-tag]"), { x: 28, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.85 }, 0.12)
+          .fromTo(figure, { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.15 }, 0.18)
+          .fromTo(image, { scale: 1.16 }, { scale: 1, duration: 1.5 }, 0.18)
+          .fromTo(items, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.08 }, 0.5);
+
+        gsap.fromTo(
+          image,
+          { yPercent: -3.5 },
+          {
+            yPercent: 3.5,
+            ease: "none",
+            scrollTrigger: { trigger: article, start: "top bottom", end: "bottom top", scrub: 0.6 },
+          },
+        );
+      });
+    });
+  });
 
   return (
     <section ref={ref} className="relative bg-ivory-2" aria-labelledby="pillars-title">
@@ -137,25 +169,25 @@ export function Pillars() {
       </div>
 
       {/* Mobile / tablet narrative */}
-      <div ref={mobileRef} className="container-x pb-[clamp(5rem,10vw,9rem)] lg:hidden motion-reduce:!block">
+      <div className="container-x pb-[clamp(5rem,10vw,9rem)] lg:hidden motion-reduce:!block">
         {areas.map((a) => (
-          <article key={a.slug} className="grid gap-6 border-b hairline py-12 last:border-b-0">
-            <div className="flex items-baseline justify-between" data-reveal>
-              <span className="num text-[clamp(3.5rem,16vw,6rem)] font-medium leading-none tracking-[-0.06em]">{a.index}</span>
-              <span className="label !text-[0.8rem] text-sage-deep">{a.tagline}</span>
+          <article key={a.slug} data-p-m-article className="grid gap-6 border-b hairline py-12 last:border-b-0">
+            <div className="flex items-baseline justify-between">
+              <span data-p-m-num className="num text-[clamp(3.5rem,16vw,6rem)] font-medium leading-none tracking-[-0.06em]">{a.index}</span>
+              <span data-p-m-tag className="label !text-[0.8rem] text-sage-deep">{a.tagline}</span>
             </div>
-            <figure className="overflow-hidden mask-arch-sm" data-reveal="scale">
-              <img src={a.image} alt={a.imageAlt} loading="lazy" className="aspect-[4/3] max-h-[70vh] w-full object-cover" />
+            <figure data-p-m-fig className="overflow-hidden mask-arch-sm">
+              <img src={a.image} alt={a.imageAlt} loading="lazy" className="aspect-[4/3] max-h-[70vh] w-full object-cover will-change-transform" />
             </figure>
-            <h3 className="display display-md" data-reveal>
+            <h3 data-p-m-item className="display display-md">
               {a.title}
             </h3>
-            <p className="lede" data-reveal>
+            <p data-p-m-item className="lede">
               {a.description}
             </p>
-            <ul className="grid gap-5 sm:grid-cols-2" data-reveal>
+            <ul className="grid gap-5 sm:grid-cols-2">
               {a.figures.map((f) => (
-                <li key={f.name} className="border-t hairline pt-4">
+                <li key={f.name} data-p-m-item className="border-t hairline pt-4">
                   <p className="text-[1.15rem] font-medium">{f.name}</p>
                   <p className="mt-1 text-[0.95rem] text-sage-deep">{f.role}</p>
                   <ul className="mt-3 space-y-2 text-[1rem] leading-snug text-ink/80">

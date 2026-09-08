@@ -109,6 +109,84 @@ export function Ecosystem() {
       });
     });
 
+    // Hovering a card floats it to the middle of the screen and opens it, then
+    // sends it home when the pointer leaves. Mouse only: on a wide touch screen
+    // a tap would strand the card at the centre with no pointermove to release
+    // it. The return is driven by pointermove against the card's home box
+    // rather than by pointerleave, because the card slides out from under the
+    // cursor the instant it starts moving and would otherwise flip-flop.
+    mm.add("(min-width: 64rem) and (hover: hover) and (prefers-reduced-motion: no-preference)", () => {
+      const nodes = q<HTMLElement>("[data-eco-stage] [data-eco-node]");
+      let active: { node: HTMLElement; index: number; home: DOMRect } | null = null;
+
+      const within = (r: DOMRect, x: number, y: number, pad = 10) =>
+        x >= r.left - pad && x <= r.right + pad && y >= r.top - pad && y <= r.bottom + pad;
+
+      const send = (node: HTMLElement, index: number) => {
+        if (active?.node === node) return;
+        if (active) home();
+        const rect = node.getBoundingClientRect();
+        // The panel opens downward, so the card's centre drops by half of what
+        // the panel adds. Aim at where the centre will end up, not where it is.
+        const panel = node.querySelector<HTMLElement>(".card-panel > div");
+        const grows = panel ? panel.scrollHeight : 0;
+        const tall = rect.height + grows;
+        active = { node, index, home: rect };
+        setOpenIdx(index);
+        gsap.set(node, { zIndex: 60 });
+        gsap.to(node, {
+          x: window.innerWidth / 2 - (rect.left + rect.width / 2),
+          y: window.innerHeight / 2 - (rect.top + rect.height / 2 + grows / 2),
+          scale: Math.min(1.32, (window.innerHeight * 0.82) / tall),
+          rotate: 0,
+          duration: 0.85,
+          ease: "premium",
+          overwrite: "auto",
+        });
+      };
+
+      const home = () => {
+        if (!active) return;
+        const { node, index } = active;
+        active = null;
+        setOpenIdx((v) => (v === index ? null : v));
+        gsap.to(node, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotate: NODES[index].rotate,
+          duration: 0.8,
+          ease: "premium",
+          overwrite: "auto",
+          onComplete: () => gsap.set(node, { clearProps: "zIndex" }),
+        });
+      };
+
+      const onMove = (e: PointerEvent) => {
+        if (!active) return;
+        // Keep it out while the pointer is either still over where the card was
+        // or over the card itself, so the expanded card stays reachable.
+        if (within(active.home, e.clientX, e.clientY)) return;
+        if (within(active.node.getBoundingClientRect(), e.clientX, e.clientY)) return;
+        home();
+      };
+
+      const enters = nodes.map((node, i) => {
+        const fn = () => send(node, i);
+        node.addEventListener("pointerenter", fn);
+        return fn;
+      });
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("scroll", home, { passive: true });
+
+      return () => {
+        nodes.forEach((node, i) => node.removeEventListener("pointerenter", enters[i]));
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("scroll", home);
+        home();
+      };
+    });
+
     mm.add("(max-width: 63.98rem) and (prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(
         q("[data-eco-grid] [data-eco-node]"),

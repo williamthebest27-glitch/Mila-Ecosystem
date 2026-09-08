@@ -140,7 +140,7 @@ export function Hero() {
       <div data-hero-veil aria-hidden="true" className="pointer-events-none absolute inset-0 z-30 bg-ivory opacity-0" />
 
       {/* Photograph: full-bleed on desktop, top block on mobile */}
-      <div data-hero-photo className="relative h-[46svh] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[64%]">
+      <div data-hero-photo className="relative h-[38svh] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[64%]">
         <img
           src="/images/hero-photo.webp"
           alt={hero.photoAlt}
@@ -171,7 +171,7 @@ export function Hero() {
         <p className="sr-only">{hero.script.join(". ")}</p>
       </div>
 
-      <div className="container-x relative flex min-h-0 flex-col pb-10 pt-8 lg:h-[100svh] lg:justify-between lg:pb-[min(2rem,3svh)] lg:pt-[calc(var(--nav-h)+min(2.5rem,4svh))]">
+      <div className="container-x relative flex min-h-0 flex-col pb-10 pt-6 lg:h-[100svh] lg:justify-between lg:pb-[min(2rem,3svh)] lg:pt-[calc(var(--nav-h)+min(2.5rem,4svh))]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
           {/* Copy */}
           {/* Below lg the two CTAs move above the headline (order-2), so the

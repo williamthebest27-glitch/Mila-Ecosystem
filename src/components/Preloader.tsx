@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { completeIntro } from "@/lib/intro";
 import { logoFull } from "@/data/logo";
 
@@ -36,6 +36,10 @@ export function Preloader() {
 
     const finish = () => {
       html.style.overflow = restore;
+      // Positions measured while the intro held the page locked (and while its
+      // images were still arriving) can be stale, which leaves scroll reveals
+      // firing at the wrong point or not at all.
+      ScrollTrigger.refresh();
       completeIntro();
       setGone(true);
     };
