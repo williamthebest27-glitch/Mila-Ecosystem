@@ -86,7 +86,7 @@ export function Pillars() {
   });
 
   return (
-    <section ref={ref} className="relative bg-ivory-2" aria-labelledby="pillars-title">
+    <section ref={ref} id="aree" className="relative bg-ivory-2 scroll-mt-[var(--nav-h)]" aria-labelledby="pillars-title">
       {/* Section intro (shared) */}
       <div className="container-x pt-[clamp(5rem,10vw,9rem)]">
         <div className="grid gap-6 border-b hairline pb-10 lg:grid-cols-12 lg:items-end">

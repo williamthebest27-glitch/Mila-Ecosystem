@@ -20,7 +20,12 @@ const COVER_TONES = [
   { ground: "var(--color-ivory-3)", ink: "var(--color-ink)", meta: "var(--color-clay-deep)" },
 ] as const;
 
-function Cover({ title, topic, tone }: { title: string; topic: string; tone: number }) {
+/**
+ * Esportata: la usa anche "I tuoi percorsi" nell'area personale (punto 27),
+ * perché un libro comprato deve avere la stessa copertina che aveva sullo
+ * scaffale.
+ */
+export function Cover({ title, topic, tone }: { title: string; topic: string; tone: number }) {
   const t = COVER_TONES[tone] ?? COVER_TONES[0];
   return (
     <div

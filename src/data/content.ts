@@ -14,13 +14,15 @@ export const routes = {
   risorse: "/risorse",
   dashboard: "/dashboard",
   login: "/login",
-  quiz: "/quiz",
+  // Il quiz del punto 23 è la Ruota della Vita, e vive nell'area personale.
+  quiz: "/dashboard#ruota",
   lettera: "/blog/lettera-a-mia-nonna",
   libreria: "/libreria",
   viaggi: "/viaggi",
   business: "/business",
-  bacheca: "/bacheca",
-  eventi: "/eventi",
+  // Bacheca ed eventi (punti 28-30) sono due zone dell'area personale, non due pagine.
+  bacheca: "/dashboard#bacheca",
+  eventi: "/dashboard#agenda",
   collaborazioni: "/collaborazioni",
   feedback: "/feedback",
 } as const;
@@ -265,10 +267,10 @@ export const future = {
     { title: "Blog", description: "Pensieri lunghi, lettere e storie che non stanno in un post.", to: routes.blog },
     { title: "Libreria", description: "I miei libri, uno dopo l'altro: da leggere, scaricare, tenere.", to: routes.libreria },
     { title: "Area personale", description: "Il tuo spazio: percorsi acquistati, diario, prenotazioni, bacheca.", to: routes.dashboard },
-    { title: "Millina", description: "La mia piccola assistente digitale: ti orienta, ti suggerisce il passo dopo." },
+    { title: "Millina", description: "La mia piccola assistente digitale: ti orienta, ti suggerisce il passo dopo.", to: "/dashboard#millina" },
     { title: "Business", description: "Triskell Academy e Agency: imparare le competenze o delegare a noi.", to: routes.business },
     { title: "Viaggi", description: "L'ecosistema che esce dallo schermo e diventa un posto dove ritrovarsi." },
-    { title: "Eventi", description: "Live, workshop e incontri con le professioniste dell'ecosistema." },
+    { title: "Eventi", description: "Live, workshop e incontri con le professioniste dell'ecosistema.", to: routes.eventi },
   ] satisfies FutureArea[],
 };
 
@@ -643,26 +645,50 @@ export const salotto = {
 };
 
 /**
- * Punto 20 del brief: l'area personale.
+ * L'area personale: il punto 20 del brief, e i punti da 21 a 31 che la
+ * riempiono.
  *
- * Due istruzioni precise. La prima: "non deve essere semplicemente il posto in
- * cui trovare ciò che è stato acquistato" — quindi la pagina apre dicendo
- * cosa NON è, prima di cosa sarà. La seconda: "per ora eviterei il sistema a
+ * Due istruzioni la governano da sempre. La prima: "non deve essere
+ * semplicemente il posto in cui trovare ciò che è stato acquistato" — per
+ * questo la pagina non apre con lo scaffale ma con un saluto, una frase e la
+ * domanda da dove vuoi partire. La seconda: "per ora eviterei il sistema a
  * punti e gamification" — l'app originale ha livelli, punti e badge (Seme,
  * Germoglio); qui non ci sono, e l'assenza è dichiarata invece che
  * silenziosa, perché in un prodotto di crescita personale rinunciare al
  * punteggio è una posizione, non una mancanza.
  *
- * Le zone qui sotto sono la forma dell'area, non i suoi contenuti: ogni voce
- * riassume in una riga un punto fra il 21 e il 31, che li costruiranno. Non
- * c'è nessun dato simulato — niente barre di avanzamento finte, niente
- * prenotazioni inventate: mostrare dati falsi in un'anteprima significa
- * chiedere a chi guarda di fingere che siano veri.
+ * L'ordine delle zone è quello del punto 31, alla lettera: bentornata, frase
+ * del giorno, da dove vuoi partire, i tuoi percorsi, la tua bacheca, il
+ * diario, l'accesso rapido, invita un'amica.
+ *
+ * Nessun dato simulato: senza account percorsi, prenotazioni ed eventi sono
+ * vuoti per davvero. Per vedere l'area da piena c'è l'interruttore dei dati
+ * di esempio, che si dichiara in ogni scheda mentre è acceso.
  */
 export const dashboard = {
   label: "Area personale",
-  title: ["Il tuo spazio", "dentro l'ecosistema."],
-  notice: "Frase del giorno, Millina, la Ruota della Vita e il diario funzionano già. Il resto aspetta l'accesso.",
+  greeting: "Bentornata",
+  lede:
+    "Il tuo spazio dentro l'ecosistema: quello che hai, quello che ti aspetta e qualcuno a cui chiedere quando non sai da dove ripartire.",
+  notice:
+    "Funzionano già: la frase del giorno, Millina, la Ruota della Vita, il diario, il tuo codice invito e il calendario. Percorsi, prenotazioni ed eventi aspettano l'accesso: qui sotto sono vuoti, ed è giusto così.",
+  /** Il nome per il saluto: chiesto una volta, tenuto su questo dispositivo. */
+  name: {
+    ask: "Dimmi come ti chiami",
+    change: "Cambia il nome",
+    label: "Il tuo nome",
+    placeholder: "Il tuo nome",
+    save: "Salva",
+    cancel: "Annulla",
+    note: "Il nome resta su questo dispositivo finché non c'è l'accesso: non passa da nessun server.",
+  },
+  demoNote:
+    "I dati di esempio servono a vedere l'area quando è piena: percorsi, prenotazioni ed eventi non sono tuoi e, finché sono accesi, ogni scheda lo dichiara.",
+  startLabel: "Da dove vuoi partire?",
+  startNote:
+    "Due porte per la stessa domanda: la Ruota della Vita se preferisci guardarti da sola, Millina se preferisci che te lo chieda qualcuno.",
+  boardLabel: "La tua bacheca",
+  boardNote: "Quello che hai in programma: gli appuntamenti presi, gli incontri inclusi nel percorso e quando sono.",
   notArchive: {
     title: "Non è uno scaffale.",
     text:
@@ -673,17 +699,65 @@ export const dashboard = {
     text:
       "Non troverai badge da collezionare né classifiche da scalare. Il progresso qui non è un punteggio: è quello che noti in te quando riapri il diario di tre mesi fa.",
   },
-  zonesLabel: "Quello che manca ancora",
-  zonesNote:
-    "Queste quattro zone aspettano l'accesso e gli acquisti: senza un account non c'è niente di vero da mostrare, e preferisco lo spazio vuoto a dei dati finti.",
-  zones: [
-    { name: "Bentornata", text: "Il tuo nome e il punto esatto in cui hai lasciato, ogni volta che rientri." },
-    { name: "I tuoi percorsi", text: "Corsi, workbook, registrazioni e bonus, ciascuno con il punto in cui sei rimasta." },
-    { name: "La tua bacheca", text: "Le call prenotate, le live incluse nel percorso, gli eventi a cui puoi partecipare." },
-    { name: "Invita un'amica", text: "Il tuo codice personale, e quello che ricevi quando qualcuna entra grazie a te." },
-  ],
   cta: { label: "Esplora i percorsi", to: routes.percorsi },
   secondary: { label: "Parliamone in call", to: routes.call },
+};
+
+/**
+ * Punto 33 del brief: "non deve sembrare una semplice landing page che vende
+ * corsi, deve dare l'impressione di entrare in un mondo".
+ *
+ * Il brief elenca lui stesso i tredici verbi di quel mondo — leggere,
+ * esplorare, scaricare, fare un quiz, parlare con Millina, comprare un libro,
+ * iniziare Mila Reset, entrare in un percorso, confrontarsi, lavorare sul
+ * benessere, lavorare sul business, prenotare una call, tornare nella propria
+ * area — e aggiunge la condizione che conta: "tutte queste cose devono però
+ * essere presentate in maniera ordinata".
+ *
+ * Ordinate significa una cosa sola: per quanto chiedono. Si comincia da ciò
+ * che non chiede niente e si scende. Nessuna porta è finta: ognuna arriva in
+ * una pagina che esiste già, ed è per questo che questo elenco poteva essere
+ * scritto solo adesso.
+ */
+export const doors = {
+  label: "Accesso rapido",
+  title: "Tutte le porte, in ordine.",
+  note: "Dalle cose che non chiedono niente a quelle che chiedono di più. Si entra da dove ha senso per te.",
+  groups: [
+    {
+      name: "Senza chiedere niente",
+      items: [
+        { verb: "Leggere", name: "Il blog", to: routes.blog },
+        { verb: "Esplorare", name: "L'ecosistema", to: routes.ecosistema },
+        { verb: "Scaricare", name: "Le risorse gratuite", to: routes.risorse },
+      ],
+    },
+    {
+      name: "Per capire da dove partire",
+      items: [
+        { verb: "Fare il quiz", name: "La Ruota della Vita", to: "#ruota" },
+        { verb: "Parlare", name: "Con Millina", to: "#millina" },
+        { verb: "Prenotare", name: "La call iniziale", to: routes.call },
+      ],
+    },
+    {
+      name: "Per cominciare davvero",
+      items: [
+        { verb: "Leggere un libro", name: "La libreria", to: routes.libreria },
+        { verb: "Iniziare", name: "Mila Reset", to: "/percorsi#mila-reset" },
+        { verb: "Entrare", name: "In un percorso", to: "/percorsi#percorsi-strutturati" },
+      ],
+    },
+    {
+      name: "Per andare a fondo",
+      items: [
+        { verb: "Confrontarti", name: "Nel salotto di Mila", to: routes.community },
+        { verb: "Lavorare sul benessere", name: "Le tre aree", to: "/#aree" },
+        { verb: "Lavorare sul business", name: "Triskell", to: routes.business },
+        { verb: "Scrivere", name: "Nel tuo diario", to: "#diario" },
+      ],
+    },
+  ],
 };
 
 export const story = {
@@ -852,6 +926,54 @@ export const resources = {
   ] satisfies Resource[],
 };
 
+/**
+ * Punto 32 del brief: le risorse gratuite come pagina intera.
+ *
+ * "La parte gratuita è importante perché può essere uno dei primi punti di
+ * ingresso nell'ecosistema": è la porta più bassa che esista, e finora nel
+ * sito nuovo era un vicolo cieco — la sezione in homepage e il menu Esplora
+ * puntavano a una pagina che non c'era.
+ *
+ * I testi e le sei risorse sono quelli dell'app originale, modulo compreso.
+ * L'unica aggiunta è la riga di Millina: il brief chiede che possa usare il
+ * gratuito "per suggerire qualcosa a chi ancora non è pronta ad acquistare".
+ */
+export const resourcesPage = {
+  kicker: "100% gratuite",
+  title: ["Risorse gratuite", "per iniziare oggi."],
+  lede:
+    "Mini guide, audio trasformativi, meditazioni guidate, quiz e workbook. Tutto pensato per darti un assaggio reale dell'approccio di Mila.",
+  kinds: ["E-book", "Audio", "Meditazioni", "Workbook", "Quiz"],
+  chooseTitle: "Scegli da dove iniziare.",
+  chooseText: "Ogni risorsa è autonoma. Puoi scaricare ciò che senti più tuo in questo momento.",
+  free: "Gratis",
+  open: "Scarica gratis",
+  close: "Chiudi",
+  form: {
+    title: "Vuoi scaricarla gratuitamente?",
+    nome: "Nome",
+    cognome: "Cognome",
+    email: "Email",
+    telefono: "Telefono (facoltativo)",
+    cta: "Scarica ora",
+    safe: "I tuoi dati sono al sicuro. Niente spam, mai.",
+    manca: "Serve per poterti mandare la risorsa.",
+    emailStorta: "Controlla l'indirizzo: manca qualcosa.",
+  },
+  /** Cosa succede davvero quando si preme "Scarica ora", detto senza giri. */
+  sent: {
+    title: "La richiesta è pronta. Ma non parte ancora.",
+    text:
+      "Il modulo funziona: quello che manca è il collegamento al servizio che spedisce l'email con il file. Quando ci sarà, questa stessa richiesta partirà davvero — senza doverla riscrivere.",
+    recap: "Quello che verrebbe inviato",
+    again: "Chiedine un'altra",
+  },
+  millina: {
+    text: "Non sai quale scegliere? Millina conosce tutte le risorse e sa quale ha senso per il punto in cui sei.",
+    cta: { label: "Chiedilo a Millina", to: "/dashboard#millina" },
+  },
+};
+
 export const call = {
   label: "Il primo passo",
   title: ["Prenota la tua", "call iniziale con me."],
@@ -895,6 +1017,241 @@ export const thoughts = {
     "Ogni confine che metti è una carezza che fai a chi sarai domani.",
     "Le radici delle donne che ti hanno preceduto sono ora le tue ali.",
   ],
+};
+
+export type Post = {
+  category: string;
+  /** La data com'è scritta nell'originale: giorno e mese, senza anno. */
+  date: string;
+  title: string;
+  hook: string;
+  minutes: number;
+  /** La pagina dell'articolo, quando esiste. Assente = scritto, ma non ancora qui. */
+  to?: string;
+};
+
+/**
+ * Punto 32 del brief: il blog.
+ *
+ * "Pensieri di Mila" esiste già nell'app originale e questo è il suo trasloco:
+ * stessi articoli, stessi occhielli, stessi pensieri veloci. Due differenze
+ * volute.
+ *
+ * La prima: solo la lettera ha una pagina. Gli altri cinque articoli, nell'app
+ * originale, sono titoli senza testo — e scrivere io il corpo di un articolo
+ * firmato Mila significherebbe metterle in bocca delle parole. Restano
+ * elencati, con scritto che stanno arrivando, come le copertine provvisorie
+ * della libreria.
+ *
+ * La seconda: i pensieri veloci perdono le date relative ("Oggi", "Ieri", "3
+ * giorni fa"). Erano vere il giorno in cui sono state scritte e diventano
+ * false il giorno dopo; il pensiero regge benissimo da solo.
+ */
+export const blog = {
+  label: "Pensieri di Mila",
+  title: ["Articoli e pensieri,", "scritti a mano libera."],
+  lede: [
+    "Una delle passioni che mi ha trasmesso mia nonna è la scrittura. Lei scriveva poesie, scriveva tantissimo: non è mai riuscita a pubblicare i suoi scritti, ma quella voce non si è mai spenta.",
+    "Voglio portare avanti la sua passione perché è anche la mia. Qui troverai articoli più strutturati e pensieri veloci: riflessioni quotidiane, analisi, intuizioni.",
+  ],
+  pinned: {
+    kicker: "Da qui è iniziato tutto",
+    label: "Lettera fissata in alto",
+    title: "Lettera a mia nonna.",
+    text:
+      "La storia di Mila, di mia nonna, e del perché tutto questo esiste. Se vuoi capire davvero da dove nasce Mila Ecosystem, parti da qui.",
+    cta: { label: "Leggi la lettera completa", to: routes.lettera },
+  },
+  postsLabel: "Articoli",
+  thoughtsLabel: "Pensieri veloci",
+  reading: "min lettura",
+  soon: "In arrivo",
+  posts: [
+    {
+      category: "Riflessioni",
+      date: "12 marzo",
+      title: "Lettera a mia nonna",
+      hook: "Ti scrivo perché tutto quello che faccio nasce dalle tue mani silenziose.",
+      minutes: 5,
+      to: routes.lettera,
+    },
+    {
+      category: "Empowerment",
+      date: "28 febbraio",
+      title: "Smettere di chiedere permesso di esistere",
+      hook: "Non serve un foglio firmato. La tua presenza basta.",
+      minutes: 7,
+    },
+    {
+      category: "Viaggi",
+      date: "10 febbraio",
+      title: "Viaggiare da sole è un atto politico",
+      hook: "Ogni biglietto comprato in autonomia è un voto per la tua libertà.",
+      minutes: 9,
+    },
+    {
+      category: "Business",
+      date: "1 febbraio",
+      title: "Soldi e femminilità: smettere di scusarsi",
+      hook: "Guadagnare bene non ti rende meno donna, ti rende più libera.",
+      minutes: 6,
+    },
+    {
+      category: "Corpo",
+      date: "15 gennaio",
+      title: "Vivere in modo ciclico in un mondo lineare",
+      hook: "Non sei rotta, sei ciclica. E il tuo ritmo è una bussola.",
+      minutes: 8,
+    },
+    {
+      category: "Spiritualità",
+      date: "5 gennaio",
+      title: "Spiritualità senza dogmi",
+      hook: "Strumenti, non religione. Consapevolezza, non fuga.",
+      minutes: 5,
+    },
+  ] satisfies Post[],
+  thoughts: [
+    "Ogni volta che dici «va bene» senza che vada bene davvero, stai cancellando un pezzo di te.",
+    "Le donne che ammiro non hanno fretta. Hanno radici.",
+    "Forse non devi essere capita da tutti. Solo da te stessa.",
+    "Indipendenza non è far tutto da sole. È poter scegliere chi tenere accanto.",
+  ],
+  suggest: {
+    label: "Conversazione",
+    title: "Suggeriscimi un argomento",
+    text: "C'è qualcosa di cui vorresti che scrivessi? Lascia qui la tua idea: la leggo personalmente.",
+    topic: "Argomento",
+    more: "Vuoi aggiungere qualcosa? (facoltativo)",
+    cta: "Invia il suggerimento",
+    manca: "Scrivi l'argomento che ti interessa.",
+    sentTitle: "Il suggerimento è pronto, ma non parte ancora.",
+    sentText:
+      "Come per le risorse gratuite: il modulo funziona, manca solo il collegamento che lo recapita a Mila. Quando ci sarà, partirà da solo.",
+  },
+};
+
+/**
+ * La lettera a sua nonna, per intero: il testo è quello dell'app originale,
+ * parola per parola.
+ *
+ * Ogni blocco è un elenco di righe perché gli a capo, qui, sono scritti: "Non
+ * aveva la patente. / Non aveva indipendenza di movimento." sono tre righe
+ * corte e non un periodo unico, ed è il ritmo a fare il lavoro.
+ */
+export const letter = {
+  category: "Riflessioni",
+  date: "12 marzo",
+  minutes: 5,
+  title: "Lettera a mia nonna",
+  hook: "Ti scrivo perché tutto quello che faccio nasce dalle tue mani silenziose.",
+  sectionTitle: "La storia dietro Mila Ecosystem",
+  blocks: [
+    { lines: ["Mi chiamo Martina Mila Montanelli.", "E Mila era il nome di mia nonna."] },
+    { lines: ["A lei dedico questo progetto."] },
+    {
+      lines: [
+        "Mila è stata una donna che ha dovuto diventare forte molto presto. Da bambina è stata cresciuta dai nonni, perché i suoi genitori non potevano stare con lei e con sua sorella. Così, ancora piccola, ha imparato a prendersi cura di qualcun altro prima ancora di imparare davvero a prendersi cura di sé.",
+      ],
+    },
+    {
+      lines: [
+        "Si è occupata della sorella minore.",
+        "Ha studiato con passione, perché per lei lo studio era libertà.",
+        "Ha lavorato, ha resistito, ha attraversato una vita che le ha chiesto tantissimo.",
+      ],
+    },
+    {
+      lines: [
+        "Negli anni '60, in un piccolo paese di montagna, si è ritrovata accanto un uomo violento. E ha avuto il coraggio di andarsene.",
+      ],
+    },
+    {
+      lines: [
+        "Ha divorziato in un'epoca in cui una donna che lasciava il marito non veniva capita: veniva giudicata. In un paese piccolo, dove ogni scelta diventava voce, sguardo, commento.",
+      ],
+    },
+    {
+      lines: [
+        "Non aveva la patente.",
+        "Non aveva indipendenza di movimento.",
+        "Non aveva una rete pronta a sostenerla.",
+      ],
+    },
+    { lines: ["Eppure è andata avanti."] },
+    {
+      lines: [
+        "Ha cresciuto mia madre da sola.",
+        "Ha fatto la maestra.",
+        "Ha lasciato un segno così profondo che, ancora oggi, chi l'ha conosciuta la ricorda con amore.",
+      ],
+    },
+    {
+      lines: [
+        "I suoi alunni ricordano ancora ciò che ha insegnato, ma soprattutto il modo in cui lo ha fatto. Perché ci sono donne che non passano semplicemente nella vita degli altri: lasciano una traccia.",
+      ],
+    },
+    { lines: ["Mila era una di quelle."] },
+    { lines: ["Una donna forte, intelligente, sensibile.", "Una donna che ha dato tanto.", "Forse troppo."] },
+    { lines: ["Perché mentre si prendeva cura di tutti, piano piano dimenticava se stessa."] },
+    { lines: ["E qui arriva la parte più dolorosa."] },
+    { lines: ["Perché Mila, questa grande donna, oggi non è più qui tra noi."] },
+    {
+      lines: [
+        "Ci ha lasciati anni fa. E negli ultimi anni della sua vita, nonostante fosse circondata d'amore, non riusciva più a percepirlo.",
+      ],
+    },
+    {
+      lines: [
+        "Il dolore era diventato più forte della presenza.",
+        "La tristezza più forte dell'abbraccio.",
+        "Il vuoto più forte di tutto ciò che le stava attorno.",
+      ],
+    },
+    { lines: ["Mia nonna è morta di dolore.", "È morta triste."] },
+    {
+      lines: [
+        "E anche se oggi non può vedere con i suoi occhi tutto questo, io sento che, ovunque sia, in qualche modo lo sa.",
+      ],
+    },
+    {
+      lines: [
+        "Sa che il suo nome non è stato dimenticato.",
+        "Sa che la sua storia non è rimasta chiusa nel silenzio.",
+        "Sa che ciò che lei ha vissuto, sopportato e donato oggi può diventare qualcosa di più grande.",
+      ],
+    },
+    {
+      lines: [
+        "Mila Ecosystem nasce come omaggio a lei.",
+        "Ma anche come omaggio a tutte le donne che, come lei, hanno messo se stesse da parte.",
+      ],
+    },
+    {
+      lines: [
+        "Alle donne che hanno resistito troppo.",
+        "A quelle che hanno dato tutto senza chiedere nulla.",
+        "A quelle che si sono sentite sole anche in mezzo agli altri.",
+        "A quelle che non hanno trovato una mano tesa quando ne avevano più bisogno.",
+      ],
+    },
+    { lines: ["Questo progetto nasce per ricordare a ogni donna una cosa semplice, ma fondamentale:"] },
+    { lines: ["non devi salvarti da sola."], tone: "pull" },
+    {
+      lines: [
+        "Ho creato Mila Ecosystem per questo. Per costruire un luogo fatto di percorsi, community, strumenti, esperienze e mani tese.",
+      ],
+    },
+    {
+      lines: [
+        "Uno spazio in cui ogni donna possa sentirsi vista, ascoltata, accompagnata.",
+        "Uno spazio in cui la forza non debba più significare solitudine.",
+      ],
+    },
+    { lines: ["Mila Ecosystem nasce per lei.", "Ma continua per tutte noi."] },
+  ] satisfies Array<{ lines: string[]; tone?: "pull" }>,
+  back: { label: "Torna al blog", to: routes.blog },
+  cta: { label: "Scopri l'ecosistema nato da qui", to: routes.ecosistema },
 };
 
 /**
