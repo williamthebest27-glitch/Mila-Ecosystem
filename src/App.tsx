@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import Percorsi from "@/pages/Percorsi";
 import Business from "@/pages/Business";
 import Libreria from "@/pages/Libreria";
+import Community from "@/pages/Community";
 import Placeholder from "@/pages/Placeholder";
 
 function ScrollManager() {
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/percorsi" element={<Percorsi />} />
         <Route path="/business" element={<Business />} />
         <Route path="/libreria" element={<Libreria />} />
+        <Route path="/community" element={<Community />} />
         <Route path="*" element={<Placeholder />} />
       </Routes>
     </>

@@ -603,6 +603,45 @@ export const library = {
   books,
 };
 
+/**
+ * Punto 19 del brief: la community, "Il salotto di Mila".
+ *
+ * L'istruzione centrale è "un ambiente caldo e accogliente, non un forum
+ * freddo", quindi qui manca di proposito tutto il vocabolario del forum:
+ * nessuna lista di discussioni, nessun contatore di messaggi, nessuna griglia
+ * di categorie. Al loro posto i cinque gesti che il brief elenca — incontro,
+ * confronto, appartenenza, condivisione, supporto — ciascuno detto con una
+ * frase concreta invece che con un'etichetta.
+ *
+ * Il "niente sottogruppi" è girato da rinuncia a valore: una sola stanza.
+ * L'app originale ha sottogruppi per fascia d'età e cerchi tematici; il brief
+ * chiede esplicitamente di toglierli.
+ */
+export const salotto = {
+  label: "Community",
+  title: ["Il salotto", "di Mila."],
+  lede:
+    "Non è un forum. È la stanza in cui ci si siede, si parla e qualcuno ascolta davvero. Si entra per stare, non per pubblicare.",
+  imageAlt: "Donne di generazioni diverse sedute insieme in un giardino di pietra e rose",
+  gesturesLabel: "Cosa succede qui",
+  gestures: [
+    { name: "Incontro", text: "Trovi donne che non conoscevi e che capiscono al volo di cosa stai parlando." },
+    { name: "Confronto", text: "Si può non essere d'accordo, si può cambiare idea. Nessuna tiene il punteggio." },
+    { name: "Appartenenza", text: "Un posto dove non devi rispiegarti da capo ogni volta che scrivi." },
+    { name: "Condivisione", text: "Quello che hai imparato serve a un'altra. Quello che non sai, un'altra lo sa." },
+    { name: "Supporto", text: "Nei giorni in cui non ce la fai, qualcuna c'è. Anche solo per leggerti." },
+  ],
+  oneRoom: {
+    title: "Una sola stanza.",
+    text:
+      "Niente tavoli separati per età o per argomento. Una ragazza di diciassette anni e una donna di sessantadue si parlano, e spesso è proprio lì che succede la cosa più utile.",
+    later: "Quando saremo tante, ci penseremo. Per ora si sta tutte insieme.",
+    agesLabel: "Chi c'è, oggi",
+  },
+  cta: { label: "Entra nella community", to: routes.community },
+  secondary: { label: "Prima vuoi conoscermi? Prenota la call", to: routes.call },
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],
