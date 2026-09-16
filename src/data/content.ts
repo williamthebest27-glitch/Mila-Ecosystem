@@ -95,6 +95,8 @@ export type Area = {
   index: string;
   slug: string;
   title: string;
+  /** Etichetta breve, per i contesti stretti (schede dei livelli). */
+  short: string;
   tagline: string;
   /** Le dimensioni su cui l'area lavora, dal punto 9 del brief. */
   themes: string[];
@@ -109,6 +111,7 @@ export const areas: Area[] = [
     index: "01",
     slug: "mindset",
     title: "Mindset e crescita personale",
+    short: "Mindset",
     tagline: "La base di tutto.",
     themes: ["Autostima", "Consapevolezza", "Relazioni", "Femminilità", "Evoluzione personale"],
     description: "Il punto da cui parte ogni cambiamento. Qui ti accompagno io, Mila, come mentore e coach.",
@@ -131,6 +134,7 @@ export const areas: Area[] = [
     index: "02",
     slug: "benessere",
     title: "Benessere e salute",
+    short: "Benessere",
     tagline: "Tornare ad abitarsi.",
     themes: ["Benessere mentale e fisico", "Nutrizione", "Forma fisica", "Equilibrio", "Energia"],
     description:
@@ -174,6 +178,7 @@ export const areas: Area[] = [
     index: "03",
     slug: "indipendenza",
     title: "Business e indipendenza economica",
+    short: "Business",
     tagline: "La tua libertà concreta.",
     themes: ["Marketing", "AI", "Competenze digitali", "Lavoro", "Business", "Autonomia economica"],
     description:
@@ -338,6 +343,75 @@ export const milaReset = {
   },
   cta: { label: "Scarica ora", to: routes.risorse },
   secondary: { label: "Non sai da dove partire? Prenota la call", to: routes.call },
+};
+
+export type Level = {
+  index: string;
+  name: string;
+  claim: string;
+  description: string;
+  /** Slug delle aree coperte: è la progressione del punto 13 resa verificabile. */
+  areas: Area["slug"][];
+  includes: string[];
+  company: string;
+};
+
+/**
+ * Punto 13 del brief: i tre percorsi strutturati.
+ *
+ * Non sono tre opzioni parallele ma una salita, e il brief lo dice per Ascesa:
+ * "persona + benessere + indipendenza professionale". I tre livelli mappano
+ * quindi sulle tre aree del punto 9 — uno, due, tutte e tre — ed è questo che
+ * rende leggibile a colpo d'occhio cosa cambia salendo.
+ *
+ * Nota sul tono: il brief dice che nel Riallineamento "la mia presenza diretta
+ * deve essere relativamente limitata". È un'indicazione di business, non copy
+ * da vendita: dire a chi compra quanto poco ci sarà Mila sarebbe autolesivo.
+ * Qui è girata in positivo — si dice chi ti accompagna, non chi manca.
+ */
+export const levels = {
+  label: "Accompagnata da me",
+  title: ["Percorsi", "strutturati."],
+  lede:
+    "Tre livelli, in ordine di profondità. A ogni gradino si aggiunge un pezzo di vita su cui lavorare.",
+  coverageLabel: "Su cosa si lavora",
+  includesLabel: "Cosa comprende",
+  items: [
+    {
+      index: "01",
+      name: "Risveglio",
+      claim: "Il momento in cui cominci a vederti meglio.",
+      description:
+        "Il primo livello: quello in cui capisci cosa vuoi cambiare. Si cammina soprattutto da sole, con i materiali a fare da guida.",
+      areas: ["mindset"],
+      includes: ["Un corso preregistrato", "Materiali e workbook", "Esercizi guidati", "Accesso alla community"],
+      company: "In autonomia, con i materiali a farti da guida.",
+    },
+    {
+      index: "02",
+      name: "Riallineamento",
+      claim: "Quando il lavoro si allarga al corpo.",
+      description:
+        "Il secondo livello diventa multidisciplinare: entrano le professioniste dell'ecosistema, ciascuna sul suo terreno.",
+      areas: ["mindset", "benessere"],
+      includes: ["Supporto delle esperte", "Un corso incluso", "Materiali e community", "Live periodiche"],
+      company: "Con psicologa, nutrizionista e fitness coach al tuo fianco.",
+    },
+    {
+      index: "03",
+      name: "Ascesa",
+      claim: "Persona, benessere e indipendenza, insieme.",
+      description:
+        "Il percorso più completo: alla crescita personale e al benessere si aggiunge l'area professionale ed economica, dove entra in gioco Triskell Ecosystem.",
+      areas: ["mindset", "benessere", "indipendenza"],
+      includes: ["Tutto il lavoro sulla persona", "Il percorso di benessere", "Triskell Academy e Agency", "L'ecosistema al completo"],
+      company: "Con l'ecosistema al completo, Triskell compreso.",
+    },
+  ] satisfies Level[],
+  triskell: { label: "Scopri Triskell Ecosystem", to: routes.business },
+  note:
+    "Nessun livello è un gradino obbligato: si entra da dove ha senso per te. Se non sai da dove, ne parliamo in call.",
+  cta: { label: "Prenota la call", to: routes.call },
 };
 
 export const story = {

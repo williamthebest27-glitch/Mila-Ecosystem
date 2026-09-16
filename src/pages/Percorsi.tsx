@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { ArrowDown } from "lucide-react";
 import { ScrollTrigger } from "@/lib/gsap";
 import { roads } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
@@ -6,16 +7,18 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Glow } from "@/components/Atmosphere";
 import { SplitWords } from "@/components/Split";
+import { Link } from "@/components/Link";
 import { MilaReset } from "@/sections/MilaReset";
+import { Levels } from "@/sections/Levels";
 
 /**
  * Apertura della pagina: riprende la biforcazione della home, ma qui le due
- * strade non sono un invito — sono l'indice di ciò che segue.
- *
- * Restano nominate e non cliccabili finché non esiste anche la sezione dei
- * percorsi strutturati (punto 13): un'ancora che non porta da nessuna parte è
- * peggio di nessuna ancora.
+ * strade non sono un invito — sono l'indice di ciò che segue, e da qui in poi
+ * portano davvero alle rispettive sezioni.
  */
+/** Le due strade dell'indice puntano alle due sezioni, nello stesso ordine. */
+const ANCHORS = ["#mila-reset", "#percorsi-strutturati"];
+
 function Intro() {
   const ref = useGsap<HTMLElement>((mm, scope) => {
     const q = gsap.utils.selector(scope);
@@ -50,10 +53,20 @@ function Intro() {
 
         <ol className="mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border hairline bg-line md:grid-cols-2 lg:mt-20">
           {roads.items.map((road, i) => (
-            <li key={road.title} data-in-road className="bg-ivory-2 p-7 lg:p-8">
-              <span className="num label !text-[0.625rem]">0{i + 1}</span>
-              <p className="mt-3 text-[0.9rem] text-mute">{road.kicker}</p>
-              <p className="display display-sm mt-1 font-normal">{road.title}</p>
+            <li key={road.title} data-in-road>
+              <Link
+                to={ANCHORS[i]}
+                className="group flex h-full items-end justify-between gap-6 bg-ivory-2 p-7 transition-colors duration-500 [transition-timing-function:var(--ease-premium)] hover:bg-ivory lg:p-8"
+              >
+                <span>
+                  <span className="num label !text-[0.625rem]">0{i + 1}</span>
+                  <span className="mt-3 block text-[0.9rem] text-mute">{road.kicker}</span>
+                  <span className="display display-sm mt-1 block font-normal">{road.title}</span>
+                </span>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink/15 transition-all duration-500 [transition-timing-function:var(--ease-premium)] group-hover:bg-ink group-hover:text-ivory">
+                  <ArrowDown className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+                </span>
+              </Link>
             </li>
           ))}
         </ol>
@@ -81,6 +94,7 @@ export default function Percorsi() {
       <main id="main">
         <Intro />
         <MilaReset />
+        <Levels />
       </main>
       <Footer />
     </>
