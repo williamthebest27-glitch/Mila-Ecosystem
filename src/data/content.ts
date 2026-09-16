@@ -446,6 +446,91 @@ export const custom = {
   },
 };
 
+export type Direction = {
+  slug: string;
+  name: string;
+  /** La domanda che smista: il brief la fornisce testualmente per entrambe. */
+  question: string;
+  answer: string;
+  forWho: string;
+  forWhoItems: string[];
+  doesLabel: string;
+  does: string[];
+};
+
+/**
+ * Punti 15-17 del brief: la crescita professionale, attraverso Triskell.
+ *
+ * Il brief chiede un messaggio "molto semplice" e fornisce lui stesso le due
+ * domande che smistano il lettore. Sono quindi loro l'elemento principale
+ * della pagina: chi arriva non sceglie fra due prodotti, risponde a una
+ * domanda su di sé e si ritrova dalla parte giusta.
+ *
+ * Volutamente diverso dalla biforcazione dei Percorsi: lì si sceglie quanto
+ * accompagnamento si vuole, qui si dichiara da dove si parte. Due blocchi
+ * distesi in verticale, non due schede affiancate.
+ */
+export const business = {
+  label: "Business",
+  title: ["Anche il lavoro", "è parte di te."],
+  lede:
+    "La crescita personale non si ferma alla persona. Qui metto a disposizione Triskell Ecosystem, il mio ecosistema digitale dedicato a marketing e intelligenza artificiale.",
+  triskell: {
+    name: "Triskell Ecosystem",
+    text:
+      "Due direzioni, una sola competenza di fondo: costruire sistemi digitali che portano clienti. Puoi farteli costruire, oppure imparare a costruirli.",
+  },
+  imageAlt:
+    "Due donne di etnie diverse al lavoro insieme a un tavolo di legno chiaro, davanti a un computer portatile e un quaderno",
+  directions: [
+    {
+      slug: "agency",
+      name: "Triskell Agency",
+      question: "Hai già un'attività ma vuoi più clienti?",
+      answer: "Ti aiutiamo a costruire un sistema per trovarli.",
+      forWho: "Per chi ha già qualcosa di avviato",
+      forWhoItems: ["Un'attività", "Un business", "Un personal brand", "Un progetto", "Un servizio"],
+      doesLabel: "Su cosa interveniamo",
+      does: [
+        "Advertising",
+        "Acquisizione clienti",
+        "Marketing",
+        "Funnel",
+        "CRM",
+        "Automazioni",
+        "Siti e landing page",
+        "Intelligenza artificiale",
+        "Contenuti",
+        "Sistemi digitali",
+      ],
+    },
+    {
+      slug: "academy",
+      name: "Triskell Academy",
+      question: "Vuoi diventare tu stessa esperta di marketing e AI?",
+      answer: "Impara le competenze per costruire e far crescere il tuo progetto.",
+      forWho: "Per chi vuole imparare a farlo",
+      forWhoItems: ["Chi vuole creare qualcosa di proprio", "Chi vuole competenze professionali nuove"],
+      doesLabel: "Cosa impari",
+      does: [
+        "Marketing",
+        "Intelligenza artificiale",
+        "Advertising",
+        "Automazioni",
+        "Contenuti",
+        "Funnel",
+        "Strumenti digitali",
+        "Gestione dei lead",
+        "Creazione di business digitali",
+      ],
+    },
+  ] satisfies Direction[],
+  closing: {
+    text: "Non sai quale delle due? Anche questo si capisce parlando.",
+    cta: { label: "Prenota la call", to: routes.call },
+  },
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],

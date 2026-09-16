@@ -19,6 +19,7 @@ const jobs = [
   // La figura al centro della sezione Ecosistema: PNG con alpha, quindi il
   // WebP conserva la trasparenza e si compone sul fondo crema.
   ["dea.png", "dea", 1100, null, "centre"],
+  ["business-duo.png", "business", 1600, null, "centre"],
 ];
 
 await mkdir("public/images", { recursive: true });
