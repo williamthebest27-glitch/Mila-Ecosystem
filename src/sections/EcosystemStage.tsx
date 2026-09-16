@@ -139,13 +139,27 @@ export function EcosystemStage() {
       const track = q<HTMLElement>("[data-dea-track]")[0];
       const panels = q<HTMLElement>("[data-dea-panel]");
 
+      // La figura entra per conto suo, con un trigger semplice e `once`.
+      // Tenerla dentro la timeline agganciata allo scroll la renderebbe
+      // ostaggio dello scrub: se quello non parte — per una posizione
+      // ricalcolata male, per un refresh mancato — lei resterebbe invisibile e
+      // la sezione sarebbe vuota. La luce e le aree possono mancare; lei no.
+      gsap.fromTo(
+        q("[data-dea-figure]"),
+        { autoAlpha: 0, scale: 0.94 },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 1.4,
+          ease: "premium",
+          scrollTrigger: { trigger: track, start: "top 75%", once: true },
+        },
+      );
+
       const tl = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: { trigger: track, start: "top top", end: "bottom bottom", scrub: 0.8 },
       });
-
-      // La figura emerge per prima, poi la luce comincia a scendere.
-      tl.fromTo(q("[data-dea-figure]"), { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 0.14 }, 0);
 
       q<SVGPathElement>("[data-lux]").forEach((p) => {
         const from = Number(p.dataset.from);

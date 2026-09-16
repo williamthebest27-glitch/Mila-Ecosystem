@@ -95,8 +95,13 @@ export function Ecosystem() {
     });
   });
 
+  // `overflow-x-clip` e non `overflow-hidden`: quest'ultimo renderebbe la
+  // sezione un contenitore di scorrimento, e il `sticky` della scena si
+  // ancorerebbe a lei invece che alla finestra, senza bloccarsi mai. `clip`
+  // taglia in orizzontale — serve alla parola gigante sotto lg — senza
+  // quell'effetto collaterale.
   return (
-    <section ref={ref} id="ecosistema" className="relative overflow-hidden bg-ivory section-pad scroll-mt-[var(--nav-h)]" aria-labelledby="eco-title">
+    <section ref={ref} id="ecosistema" className="relative overflow-x-clip bg-ivory section-pad scroll-mt-[var(--nav-h)]" aria-labelledby="eco-title">
       <div className="container-x">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
