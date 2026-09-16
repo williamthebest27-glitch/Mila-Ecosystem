@@ -6,6 +6,7 @@ import { Preloader } from "@/components/Preloader";
 import Home from "@/pages/Home";
 import Percorsi from "@/pages/Percorsi";
 import Business from "@/pages/Business";
+import Libreria from "@/pages/Libreria";
 import Placeholder from "@/pages/Placeholder";
 
 function ScrollManager() {
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/percorsi" element={<Percorsi />} />
         <Route path="/business" element={<Business />} />
+        <Route path="/libreria" element={<Libreria />} />
         <Route path="*" element={<Placeholder />} />
       </Routes>
     </>

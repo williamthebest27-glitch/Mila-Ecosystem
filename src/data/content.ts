@@ -531,6 +531,78 @@ export const business = {
   },
 };
 
+export type Book = {
+  title: string;
+  topic: string;
+  description: string;
+  /** Tinta della copertina provvisoria: indice in COVER_TONES. */
+  tone: 0 | 1 | 2 | 3;
+  /** Quando esisterà la pagina del libro. Assente = non ancora disponibile. */
+  to?: string;
+  /** Etichetta dell'azione principale: alcuni titoli si comprano, altri si scaricano. */
+  action?: string;
+};
+
+const books: Book[] = [
+  {
+    title: "Le mani di mia nonna",
+    topic: "Memoir",
+    description:
+      "La storia di Mila, mia nonna, e di tutto quello che non ha potuto dire. Il libro da cui è nato l'ecosistema.",
+    tone: 0,
+    action: "Acquista",
+  },
+  {
+    title: "Tornare a scegliere",
+    topic: "Crescita personale",
+    description:
+      "Come si smette di rincorrere e si ricomincia a decidere. Un percorso in pagine, da fare con la matita in mano.",
+    tone: 1,
+    action: "Acquista",
+  },
+  {
+    title: "Il corpo che abito",
+    topic: "Corpo e benessere",
+    description:
+      "Riconciliarsi col proprio corpo senza performance e senza colpa: un libro che parla al corpo, non del corpo.",
+    tone: 2,
+    action: "Acquista",
+  },
+  {
+    title: "Soldi, dolci e dignità",
+    topic: "Indipendenza economica",
+    description:
+      "Parlare di denaro da donne, senza vergogna. Perché l'indipendenza economica è una forma di libertà quotidiana.",
+    tone: 3,
+    action: "Scarica",
+  },
+];
+
+/**
+ * Punto 18 del brief: la libreria.
+ *
+ * I titoli sono quelli già presenti nell'app originale, non inventati. Le
+ * copertine sono provvisorie come il brief consente, ma disegnate in tipografia
+ * nel font e nella palette del progetto invece che generate: nessun artefatto,
+ * coerenza garantita, e si sostituiscono con l'artwork vero cambiando una riga.
+ *
+ * Nessun libro ha ancora un `to`, quindi le due CTA si vedono — il brief vuole
+ * vedere come diventerà — ma non sono cliccabili. Aggiungere un `to` accende
+ * il titolo.
+ */
+export const library = {
+  label: "Libreria",
+  title: ["Le parole", "che restano."],
+  lede:
+    "Una libreria che cresce un titolo alla volta. Ogni libro sta in piedi da solo, ma insieme raccontano la stessa cosa da angoli diversi.",
+  preview: "Le copertine qui sotto sono provvisorie: servono a vedere come diventerà la libreria.",
+  discover: "Scopri",
+  soon: "Presto disponibile",
+  nextLabel: "Il prossimo titolo",
+  nextText: "La libreria si allunga man mano. Il posto è già pronto.",
+  books,
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],
