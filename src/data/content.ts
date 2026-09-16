@@ -414,6 +414,38 @@ export const levels = {
   cta: { label: "Prenota la call", to: routes.call },
 };
 
+/**
+ * Punto 14 del brief: il percorso individuale.
+ *
+ * Il brief lo mette esplicitamente "a parte", e non è un dettaglio di
+ * posizione: è l'unica cosa della pagina che non ha un contenuto definito.
+ * Tutto il resto risponde a "cosa c'è dentro"; questo risponde a "cosa
+ * decidiamo insieme". Per questo le voci qui sotto non sono cio' che
+ * comprende, ma cio' che resta aperto — e i suggerimenti sono domande, non
+ * risposte.
+ */
+export const custom = {
+  label: "A parte",
+  title: ["Un percorso", "costruito su di te."],
+  lede:
+    "Non è un pacchetto fra gli altri: è la possibilità di chiedere qualcosa che ancora non esiste. Ci si parla, si capisce cosa ti serve davvero, e il percorso si disegna da lì.",
+  openLabel: "Quello che decidiamo insieme",
+  openNote: "Nessuna di queste voci è decisa in anticipo: dipendono da te.",
+  open: [
+    { name: "Il prezzo", hint: "in base a cosa comprende" },
+    { name: "Gli incontri", hint: "quanti, e ogni quanto" },
+    { name: "La struttura", hint: "cosa contiene, e in che ordine" },
+    { name: "La durata", hint: "per il tempo che serve davvero" },
+  ],
+  call: {
+    label: "Come si comincia",
+    title: "Con una conversazione.",
+    text:
+      "Il primo passo è la call iniziale: mi racconti dove sei e capiamo insieme se un percorso su misura ha senso per te. Se non è la strada giusta, te lo dico.",
+    cta: { label: "Prenota la call iniziale", to: routes.call },
+  },
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],

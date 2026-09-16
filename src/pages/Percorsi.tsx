@@ -10,6 +10,7 @@ import { SplitWords } from "@/components/Split";
 import { Link } from "@/components/Link";
 import { MilaReset } from "@/sections/MilaReset";
 import { Levels } from "@/sections/Levels";
+import { CustomPath } from "@/sections/CustomPath";
 
 /**
  * Apertura della pagina: riprende la biforcazione della home, ma qui le due
@@ -95,6 +96,7 @@ export default function Percorsi() {
         <Intro />
         <MilaReset />
         <Levels />
+        <CustomPath />
       </main>
       <Footer />
     </>
