@@ -49,7 +49,7 @@ function leggi(): Account {
   } catch {
     // Finestra privata, dati del sito bloccati, JSON rovinato: si riparte da zero.
   }
-  return {
+  const account: Account = {
     name: typeof saved.name === "string" ? saved.name : "",
     // Il codice si genera una volta sola e poi resta: un codice invito che
     // cambia a ogni visita non è un codice, è un numero a caso.
@@ -57,6 +57,24 @@ function leggi(): Account {
     invitedBy: typeof saved.invitedBy === "string" ? saved.invitedBy : null,
     demo: saved.demo === true,
   };
+
+  // Il codice appena nato va messo via subito, senza aspettare che si tocchi
+  // qualcos'altro: altrimenti chi apre l'area, legge il proprio codice e se ne
+  // va, alla visita dopo ne troverebbe un altro — e quello che ha mandato a
+  // un'amica non varrebbe più niente.
+  if (account.referral !== saved.referral) scrivi(account);
+
+  return account;
+}
+
+/** Scrive senza notificare: serve a `leggi`, che gira prima dello stato. */
+function scrivi(account: Account) {
+  try {
+    window.localStorage.setItem(KEY, JSON.stringify(account));
+  } catch {
+    // Non poter salvare non deve impedire di usare la pagina: lo stato resta
+    // in memoria per questa sessione.
+  }
 }
 
 let stato: Account = leggi();
@@ -64,12 +82,7 @@ const ascoltatori = new Set<() => void>();
 
 function salva(next: Account) {
   stato = next;
-  try {
-    window.localStorage.setItem(KEY, JSON.stringify(next));
-  } catch {
-    // Non poter salvare non deve impedire di usare la pagina: lo stato resta
-    // in memoria per questa sessione.
-  }
+  scrivi(next);
   ascoltatori.forEach((fn) => fn());
 }
 
