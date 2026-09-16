@@ -96,6 +96,8 @@ export type Area = {
   slug: string;
   title: string;
   tagline: string;
+  /** Le dimensioni su cui l'area lavora, dal punto 9 del brief. */
+  themes: string[];
   description: string;
   image: string;
   imageAlt: string;
@@ -106,8 +108,9 @@ export const areas: Area[] = [
   {
     index: "01",
     slug: "mindset",
-    title: "Mindset & crescita personale",
+    title: "Mindset e crescita personale",
     tagline: "La base di tutto.",
+    themes: ["Autostima", "Consapevolezza", "Relazioni", "Femminilità", "Evoluzione personale"],
     description: "Il punto da cui parte ogni cambiamento. Qui ti accompagno io, Mila, come mentore e coach.",
     image: "/images/coaching.webp",
     imageAlt: "Una giovane donna dai capelli afro e una donna dai capelli grigi, sedute una di fronte all'altra in conversazione, in una stanza luminosa con piante e una candela accesa",
@@ -126,9 +129,10 @@ export const areas: Area[] = [
   },
   {
     index: "02",
-    slug: "corpo",
-    title: "Corpo & benessere",
+    slug: "benessere",
+    title: "Benessere e salute",
     tagline: "Tornare ad abitarsi.",
+    themes: ["Benessere mentale e fisico", "Nutrizione", "Forma fisica", "Equilibrio", "Energia"],
     description:
       "Riconnetterti al tuo corpo con specialiste selezionate. Niente performance, niente forzature: figure dedicate che lavorano in sinergia.",
     image: "/images/garden-circle.webp",
@@ -169,8 +173,9 @@ export const areas: Area[] = [
   {
     index: "03",
     slug: "indipendenza",
-    title: "Indipendenza economica",
+    title: "Business e indipendenza economica",
     tagline: "La tua libertà concreta.",
+    themes: ["Marketing", "AI", "Competenze digitali", "Lavoro", "Business", "Autonomia economica"],
     description:
       "Tre strade distinte, in base al punto in cui ti trovi: prima capire dove vai, poi imparare a fare da te o farti affiancare dal mio team.",
     image: "/images/community-circle-crop.webp",

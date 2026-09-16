@@ -80,6 +80,11 @@ export function Ecosystem() {
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(
+        q("[data-eco-area]"),
+        { y: 30, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "premium", scrollTrigger: { trigger: q("[data-eco-areas]"), start: "top 88%", once: true } },
+      );
+      gsap.fromTo(
         q("[data-eco-word]"),
         { scale: 0.85, autoAlpha: 0 },
         { scale: 1, autoAlpha: 1, duration: 1.6, ease: "premium", scrollTrigger: { trigger: q("[data-eco-stage]"), start: "top 75%", once: true } },
@@ -217,6 +222,27 @@ export function Ecosystem() {
             ))}
           </ul>
         </div>
+
+        {/* Punto 9 — le tre dimensioni di vita su cui lavora l'ecosistema.
+            Prima erano leggibili solo nella sezione "Le tre aree", molto più
+            in basso: qui diventano la spina dorsale della sezione, e le
+            schede che orbitano dichiarano a quale appartengono. */}
+        <ul data-eco-areas className="mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border hairline bg-line sm:grid-cols-3 lg:mt-16">
+          {areas.map((a) => (
+            <li key={a.slug} data-eco-area className="bg-ivory p-6 lg:p-7">
+              <span className="num label !text-[0.625rem]">{a.index}</span>
+              <p className="display display-sm mt-3 font-normal">{a.title}</p>
+              <p className="mt-1.5 text-[0.9rem] text-mute">{a.tagline}</p>
+              <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-1.5" aria-label={`Temi di ${a.title}`}>
+                {a.themes.map((t) => (
+                  <li key={t} className="rounded-full border border-ink/12 px-2.5 py-1 text-[0.72rem] leading-none text-ink/75">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
 
         {/* Desktop stage */}
         <div data-eco-stage className="relative mt-16 hidden h-[min(88vh,820px)] lg:block">
