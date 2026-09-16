@@ -7,6 +7,7 @@ import { Manifesto } from "@/sections/Manifesto";
 import { Ecosystem } from "@/sections/Ecosystem";
 import { Future } from "@/sections/Future";
 import { Pillars } from "@/sections/Pillars";
+import { Roads } from "@/sections/Roads";
 import { Story } from "@/sections/Story";
 import { ForYou } from "@/sections/ForYou";
 import { Community } from "@/sections/Community";
@@ -40,6 +41,7 @@ export default function Home() {
         <Ecosystem />
         <Future />
         <Pillars />
+        <Roads />
         <Story />
         <ForYou />
         <Community />

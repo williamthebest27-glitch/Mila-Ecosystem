@@ -267,6 +267,48 @@ export const future = {
   ] satisfies FutureArea[],
 };
 
+export type Road = {
+  kicker: string;
+  title: string;
+  description: string;
+  points: string[];
+  note: string;
+};
+
+/**
+ * Punto 11 del brief: la biforcazione dei percorsi. Due strade che partono da
+ * punti diversi e portano allo stesso posto — in autonomia oppure accompagnata.
+ *
+ * Qui si nominano soltanto: il dettaglio di Mila Reset e dei tre livelli
+ * appartiene ai punti 12 e 13, e alla pagina Percorsi.
+ */
+export const roads = {
+  label: "Percorsi",
+  title: ["Due strade,", "una direzione."],
+  lede: "Scegli da dove partire: in autonomia oppure accompagnata da me.",
+  items: [
+    {
+      kicker: "Da sola, al tuo ritmo",
+      title: "Mila Reset",
+      description:
+        "Il punto d'ingresso più semplice: cominci a lavorare su di te in autonomia, senza call.",
+      points: ["Workbook ed esercizi", "Audio e mini guide", "La Ruota della Vita", "Mini corsi ed ebook"],
+      note: "Non sai ancora quale percorso faccia per te? Parti da qui.",
+    },
+    {
+      kicker: "Accompagnata da me",
+      title: "Percorsi strutturati",
+      description:
+        "Tre livelli di profondità, dal primo risveglio alla trasformazione più completa.",
+      points: ["Risveglio", "Riallineamento", "Ascesa"],
+      note: "Con me e con le professioniste dell'ecosistema al tuo fianco.",
+    },
+  ] satisfies Road[],
+  meeting: "Qualunque strada scegli, la direzione è la stessa: tornare a scegliere te stessa.",
+  cta: { label: "Esplora i percorsi", to: routes.percorsi },
+  secondary: { label: "Non sai da dove partire? Prenota la call", to: routes.call },
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],
