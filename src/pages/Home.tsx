@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/sections/Hero";
 import { Manifesto } from "@/sections/Manifesto";
 import { Ecosystem } from "@/sections/Ecosystem";
+import { Future } from "@/sections/Future";
 import { Pillars } from "@/sections/Pillars";
 import { Story } from "@/sections/Story";
 import { ForYou } from "@/sections/ForYou";
@@ -37,6 +38,7 @@ export default function Home() {
         <Hero />
         <Manifesto />
         <Ecosystem />
+        <Future />
         <Pillars />
         <Story />
         <ForYou />

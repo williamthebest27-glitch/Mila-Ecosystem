@@ -19,8 +19,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 const SRC = "_ref/logo-master.png";
 const OUT = "public/images";
 
-const IVORY = [250, 244, 243]; // --color-ivory
-const SAGE_ON_DARK = [198, 214, 194]; // --color-sage, lightened for ink glass
+const IVORY = [254, 250, 241]; // --color-ivory
+const SAGE_ON_DARK = [183, 205, 183]; // --color-sage, the light tint reads well on ink glass
 const ON = 24; // alpha above which a pixel counts as artwork
 
 const lum = (r, g, b) => 0.2126 * r + 0.7152 * g + 0.0722 * b;

@@ -81,7 +81,7 @@ export function Call() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-5" data-reveal>
-            <Button to={call.cta.to} variant="primary" size="lg" arrow="up">
+            <Button to={call.cta.to} variant="primary" size="lg" arrow="up" highlight>
               {call.cta.label}
             </Button>
             <span className="text-sm text-mute">{call.facts.join(" · ")}</span>

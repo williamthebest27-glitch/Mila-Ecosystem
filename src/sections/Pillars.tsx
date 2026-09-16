@@ -144,7 +144,7 @@ export function Pillars() {
                         <ul className={`p-points mt-3 space-y-2 text-[0.98rem] leading-snug text-ink/80 ${a.figures.length === 1 ? "sm:columns-2 sm:gap-8" : ""}`}>
                           {f.points.map((p) => (
                             <li key={p} className="flex gap-2 break-inside-avoid">
-                              <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage" aria-hidden="true" />
+                              <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage-deep" aria-hidden="true" />
                               <span>{p}</span>
                             </li>
                           ))}
@@ -193,7 +193,7 @@ export function Pillars() {
                   <ul className="mt-3 space-y-2 text-[1rem] leading-snug text-ink/80">
                     {f.points.map((p) => (
                       <li key={p} className="flex gap-2">
-                        <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage" aria-hidden="true" />
+                        <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage-deep" aria-hidden="true" />
                         <span>{p}</span>
                       </li>
                     ))}

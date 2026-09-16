@@ -4,6 +4,7 @@ import { areas, ecosystem, routes } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
 import { Button } from "@/components/Button";
 import { Link } from "@/components/Link";
+import { Glow, Sparkles } from "@/components/Atmosphere";
 
 type Node = {
   name: string;
@@ -32,11 +33,11 @@ const NODES: Node[] = [
 /** A figure card that opens on hover / focus (desktop) or tap (touch) and reveals a summary. */
 function FigureCard({ node, open, onToggle, compact = false }: { node: Node; open?: boolean; onToggle?: () => void; compact?: boolean }) {
   return (
-    <article className="group relative rounded-[1.25rem] border border-ink/10 bg-[#fffaf9] shadow-[0_24px_60px_-36px_rgba(28,26,23,0.35)] transition-[border-color,box-shadow,transform] duration-500 [transition-timing-function:var(--ease-premium)] hover:-translate-y-1 hover:border-sage/50 hover:shadow-[0_40px_80px_-40px_rgba(28,26,23,0.45)]">
+    <article className="group relative rounded-[1.25rem] border border-ink/10 bg-white shadow-[0_24px_60px_-36px_rgba(28,26,23,0.35)] transition-[border-color,box-shadow,transform] duration-500 [transition-timing-function:var(--ease-premium)] hover:-translate-y-1 hover:border-sage-deep/40 hover:shadow-[0_40px_80px_-40px_rgba(28,26,23,0.45)]">
       <button type="button" className={`block w-full text-left ${compact ? "p-4" : "p-5"}`} aria-expanded={open ?? false} onClick={onToggle}>
         <span className="flex items-center justify-between">
           <span className="num label !text-[0.625rem]">{node.index}</span>
-          <span className="h-1.5 w-1.5 rounded-full bg-sage transition-transform duration-500 group-hover:scale-150" />
+          <span className="h-1.5 w-1.5 rounded-full bg-sage-deep transition-transform duration-500 group-hover:scale-150" />
         </span>
         <span className={`mt-4 block font-medium leading-tight tracking-[-0.02em] ${compact ? "text-[0.95rem]" : "text-[1.05rem]"}`}>{node.name}</span>
         <span className={`mt-1.5 block leading-snug text-mute ${compact ? "text-[0.75rem]" : "text-[0.8rem]"}`}>{node.role}</span>
@@ -50,7 +51,7 @@ function FigureCard({ node, open, onToggle, compact = false }: { node: Node; ope
             <ul className="mt-2 space-y-1.5 text-[0.85rem] leading-snug text-ink/80">
               {node.points.map((p) => (
                 <li key={p} className="flex gap-2">
-                  <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage" aria-hidden="true" />
+                  <span className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-sage-deep" aria-hidden="true" />
                   <span>{p}</span>
                 </li>
               ))}
@@ -197,7 +198,7 @@ export function Ecosystem() {
   });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ivory section-pad" aria-labelledby="eco-title">
+    <section ref={ref} id="ecosistema" className="relative overflow-hidden bg-ivory section-pad scroll-mt-[var(--nav-h)]" aria-labelledby="eco-title">
       <div className="container-x">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
@@ -219,6 +220,9 @@ export function Ecosystem() {
 
         {/* Desktop stage */}
         <div data-eco-stage className="relative mt-16 hidden h-[min(88vh,820px)] lg:block">
+          {/* La parola al centro sta dentro un alone dorato che pulsa piano */}
+          <Glow tone="gold" size="34rem" intensity={0.3} duration={21} className="left-[calc(50%-17rem)] top-[calc(50%-17rem)]" />
+          <Sparkles count={10} seed={7} tone="gold" minSize={6} maxSize={15} />
           {/* Split per letter so each one lifts and greens under the pointer.
               The paragraph stays pointer-events-none and only the glyphs opt
               back in, so the gaps around the word never steal hovers from the

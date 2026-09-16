@@ -23,7 +23,7 @@ export function Thoughts() {
           {row.map((q, i) => (
             <li key={i} className="flex shrink-0 items-center gap-10 pr-10">
               <span className="serif-accent whitespace-nowrap text-[clamp(1.5rem,3vw,2.75rem)] leading-none text-ink">“{q}”</span>
-              <LogoMark className="h-5 w-5 text-sage" />
+              <LogoMark className="h-5 w-5 text-sage-deep" />
             </li>
           ))}
         </ul>

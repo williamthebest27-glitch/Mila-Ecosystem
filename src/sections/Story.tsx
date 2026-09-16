@@ -34,10 +34,12 @@ export function Story() {
         { scale: 1 },
         { scale: 1.12, ease: "none", scrollTrigger: { trigger: scope, start: "top bottom", end: "bottom top", scrub: 1 } },
       );
+      // Velo chiaro che si alza: la fotografia emerge dal fondo pagina
+      // anziché uscire dal buio.
       gsap.fromTo(
         q("[data-s-overlay]"),
-        { opacity: 0.55 },
-        { opacity: 0.1, ease: "none", scrollTrigger: { trigger: scope, start: "top 70%", end: "center center", scrub: 1 } },
+        { opacity: 0.6 },
+        { opacity: 0.08, ease: "none", scrollTrigger: { trigger: scope, start: "top 70%", end: "center center", scrub: 1 } },
       );
     });
 
@@ -51,15 +53,15 @@ export function Story() {
   });
 
   return (
-    <section ref={ref} data-nav="dark" className="relative bg-ink text-ivory" aria-labelledby="story-title">
+    <section ref={ref} className="relative bg-sage-wash text-ink" aria-labelledby="story-title">
       <div className="grid lg:grid-cols-12">
         {/* Photograph — sticky on desktop, full-bleed on mobile */}
         <div className="relative lg:col-span-5">
           <div data-s-img className="relative h-[70svh] overflow-hidden lg:sticky lg:top-0 lg:h-[100svh]">
             <img src={story.image} alt={story.imageAlt} loading="lazy" className="h-full w-full object-cover object-[50%_35%] will-change-transform" />
-            <div data-s-overlay aria-hidden="true" className="absolute inset-0 bg-ink opacity-30" />
-            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-ink/70" />
-            <p className="label label-on-dark absolute bottom-6 left-[var(--gutter)] lg:left-8">{story.label}</p>
+            <div data-s-overlay aria-hidden="true" className="absolute inset-0 bg-sage-wash opacity-30" />
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-sage-wash via-sage-wash/25 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-sage-wash/75" />
+            <p className="label absolute bottom-6 left-[var(--gutter)] rounded-full bg-ivory/85 px-3.5 py-1.5 backdrop-blur-sm lg:left-8">{story.label}</p>
           </div>
         </div>
 
@@ -69,28 +71,28 @@ export function Story() {
             <h2 id="story-title" data-s-title className="display display-lg font-normal">
               {story.title.map((line, i) => (
                 <span key={i} className="block">
-                  <SplitWords text={line} wordClass={i === 1 ? "serif-accent text-sage-soft" : ""} />
+                  <SplitWords text={line} wordClass={i === 1 ? "serif-accent text-sage-deep" : ""} />
                 </span>
               ))}
             </h2>
 
-            <div className="mt-12 max-w-[38rem] space-y-6 text-[clamp(1.05rem,1.3vw,1.2rem)] leading-[1.6] text-ivory/80 lg:mt-16">
+            <div className="mt-12 max-w-[38rem] space-y-6 text-[clamp(1.05rem,1.3vw,1.2rem)] leading-[1.6] text-ink/75 lg:mt-16">
               {story.paragraphs.map((p, i) => (
-                <p key={i} data-s-p className={i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:text-[3.4em] first-letter:leading-[0.8] first-letter:font-normal first-letter:text-ivory serif-accent-first" : ""}>
+                <p key={i} data-s-p className={i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:text-[3.4em] first-letter:leading-[0.8] first-letter:font-normal first-letter:text-sage-deep serif-accent-first" : ""}>
                   {p}
                 </p>
               ))}
-              <p data-s-p className="text-ivory">
+              <p data-s-p className="text-ink">
                 {story.closing}
               </p>
             </div>
 
             <blockquote data-s-pull className="mt-10 max-w-[26ch] text-[clamp(1.75rem,3.4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] lg:mt-14">
-              <SplitWords text={story.pull} wordClass="serif-accent text-ivory" />
+              <SplitWords text={story.pull} wordClass="serif-accent text-ink" />
             </blockquote>
 
             <div className="mt-12" data-s-p>
-              <Button to={story.cta.to} variant="ghost-light" arrow="up">
+              <Button to={story.cta.to} variant="ghost" arrow="up">
                 {story.cta.label}
               </Button>
             </div>

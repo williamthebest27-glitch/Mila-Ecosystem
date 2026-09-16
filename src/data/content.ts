@@ -5,6 +5,7 @@
 
 export const routes = {
   home: "/",
+  ecosistema: "/#ecosistema",
   percorsi: "/percorsi",
   call: "/percorsi#call-iniziale",
   community: "/community",
@@ -24,18 +25,28 @@ export const routes = {
   feedback: "/feedback",
 } as const;
 
+/**
+ * Navigazione del punto 6 del brief. I nomi del menu principale sono quelli
+ * richiesti, alla lettera. "Esplora" raccoglie la seconda area; Accedi e la
+ * CTA chiudono.
+ */
 export const nav = {
   primary: [
+    { label: "Home", to: routes.home },
+    { label: "Ecosistema", to: routes.ecosistema },
     { label: "Percorsi", to: routes.percorsi },
     { label: "Community", to: routes.community },
     { label: "Chi sono", to: routes.chiSono },
-    { label: "Blog", to: routes.blog },
-    { label: "Risorse", to: routes.risorse },
   ],
-  secondary: [
-    { label: "Area personale", to: routes.dashboard },
-    { label: "Accedi", to: routes.login },
-  ],
+  explore: {
+    label: "Esplora",
+    items: [
+      { label: "Blog", to: routes.blog },
+      { label: "Risorse gratuite", to: routes.risorse },
+      { label: "Area personale", to: routes.dashboard },
+    ],
+  },
+  login: { label: "Accedi", to: routes.login },
   cta: { label: "Prenota la call", to: routes.call },
 };
 
@@ -49,7 +60,7 @@ export const hero = {
   primary: { label: "Scopri i percorsi", to: routes.percorsi },
   secondary: { label: "Prenota la call iniziale", to: routes.call },
   imageAlt: "Donne e bambine di tutte le età e culture, unite in un cerchio di comunità",
-  photoAlt: "Una donna a occhi chiusi, il viso rivolto al sole, i capelli e un tessuto chiaro mossi dal vento sulla costa",
+  photoAlt: "Dieci donne e bambine di età, etnie e culture diverse, vicine in un giardino di pietra: si guardano fra loro e ridono insieme",
   script: ["Più consapevoli", "Più libere", "Più noi"],
   video: { label: ["Scopri Mila", "in 1 minuto"], to: "/chi-sono" },
   features: [
@@ -99,7 +110,7 @@ export const areas: Area[] = [
     tagline: "La base di tutto.",
     description: "Il punto da cui parte ogni cambiamento. Qui ti accompagno io, Mila, come mentore e coach.",
     image: "/images/coaching.webp",
-    imageAlt: "Due giovani donne sedute una di fronte all'altra in uno spazio caldo e minimal, candela accesa e piante intorno",
+    imageAlt: "Una giovane donna dai capelli afro e una donna dai capelli grigi, sedute una di fronte all'altra in conversazione, in una stanza luminosa con piante e una candela accesa",
     figures: [
       {
         name: "Percorso con Mila",
@@ -208,6 +219,41 @@ export const ecosystem = {
     "È un ecosistema che si espanderà nel tempo: nuove aree, strumenti e persone si aggiungeranno per accompagnarti in qualunque fase.",
   primary: { label: "Esplora i percorsi", to: routes.percorsi },
   secondary: { label: "Risorse gratuite", to: routes.risorse },
+};
+
+export type FutureArea = {
+  title: string;
+  description: string;
+  /** Assente = area non ancora aperta: si intravede ma non si clicca. */
+  to?: string;
+};
+
+/**
+ * Punto 8 del brief: far percepire subito che l'ecosistema è più ampio di
+ * ciò che è già operativo. Le aree con `to` sono aperte; quelle senza
+ * appaiono sfocate, semitrasparenti e non cliccabili, con la dicitura
+ * COMING SOON.
+ *
+ * Per aprire un'area basta aggiungerle un `to`; per richiuderla, toglierlo.
+ */
+export const future = {
+  label: "Quello che stiamo costruendo",
+  title: ["Mila Ecosystem", "non finisce qui."],
+  lede:
+    "Alcune aree sono già aperte, altre stanno nascendo. Le lascio intravedere perché tu sappia dove stiamo andando.",
+  soonLabel: "Coming soon",
+  areas: [
+    { title: "Percorsi", description: "Due strade, una direzione: in autonomia oppure accompagnata da me.", to: routes.percorsi },
+    { title: "Il salotto di Mila", description: "La community: un posto caldo dove non devi fingere di stare sempre bene.", to: routes.community },
+    { title: "Risorse gratuite", description: "Mini guide, audio, meditazioni e quiz per cominciare senza impegno.", to: routes.risorse },
+    { title: "Blog", description: "Pensieri lunghi, lettere e storie che non stanno in un post.", to: routes.blog },
+    { title: "Libreria", description: "I miei libri, uno dopo l'altro: da leggere, scaricare, tenere.", to: routes.libreria },
+    { title: "Area personale", description: "Il tuo spazio: percorsi acquistati, diario, prenotazioni, bacheca.", to: routes.dashboard },
+    { title: "Millina", description: "La mia piccola assistente digitale: ti orienta, ti suggerisce il passo dopo." },
+    { title: "Business", description: "Triskell Academy e Agency: imparare le competenze o delegare a noi." },
+    { title: "Viaggi", description: "L'ecosistema che esce dallo schermo e diventa un posto dove ritrovarsi." },
+    { title: "Eventi", description: "Live, workshop e incontri con le professioniste dell'ecosistema." },
+  ] satisfies FutureArea[],
 };
 
 export const story = {
@@ -391,7 +437,7 @@ export const call = {
   ],
   cta: { label: "Prenota ora la tua call", to: routes.call },
   image: "/images/martina-call.webp",
-  imageAlt: "Martina al telefono — call iniziale",
+  imageAlt: "Martina seduta accanto a una finestra, il telefono all'orecchio, in ascolto durante una call iniziale",
 };
 
 export const together = {
@@ -433,6 +479,7 @@ export const footer = {
     "Un ecosistema digitale per donne che vogliono ritrovare forza, indipendenza e autenticità. Percorsi, community, corsi, viaggi e una guida concreta al tuo fianco.",
   explore: [
     { label: "Home", to: routes.home },
+    { label: "Ecosistema", to: routes.ecosistema },
     { label: "Percorsi", to: routes.percorsi },
     { label: "Community", to: routes.community },
     { label: "Chi sono", to: routes.chiSono },

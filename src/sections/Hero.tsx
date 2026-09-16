@@ -3,6 +3,7 @@ import { hero } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
 import { onIntroDone } from "@/lib/intro";
 import { Button } from "@/components/Button";
+import { Glow, Sparkles as SparkleField } from "@/components/Atmosphere";
 import { Link } from "@/components/Link";
 
 const ICONS = { users: Users, sprout: Sprout, sparkles: Sparkles } as const;
@@ -15,7 +16,7 @@ function Floats() {
         data-hero-float
         className="glass group inline-flex w-fit items-center gap-4 rounded-full border border-white/70 bg-white/45 py-2 pl-2 pr-6 text-ink shadow-[0_20px_50px_-30px_rgba(28,26,23,0.4)] transition-transform duration-500 [transition-timing-function:var(--ease-premium)] hover:-translate-y-1 lg:absolute lg:right-0 lg:top-[44svh]"
       >
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-white/85 text-[#8a6a4e] transition-transform duration-500 group-hover:scale-105">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-white/85 text-clay-deep transition-transform duration-500 group-hover:scale-105">
           <Play className="ml-0.5 h-5 w-5 fill-current" strokeWidth={1.5} aria-hidden="true" />
         </span>
         <span className="text-[0.95rem] font-medium leading-tight">
@@ -52,11 +53,11 @@ function Floats() {
 }
 
 /**
- * 01 — Hero. Full-bleed photograph on the right, editorial copy on the left,
- * floating glass elements (video pill, social proof), handwritten accent and
- * an arch image peeking from the bottom edge.
- * Entrance: headline from the left → photo from the right → navbar from the
- * top → lede, buttons and features from the bottom.
+ * 01 — Hero. La fotografia di gruppo fa da sfondo all'intera sezione,
+ * sfumata nella crema, con la copy editoriale a sinistra, gli elementi di
+ * vetro flottanti (pillola video, riprova sociale) e l'accento scritto a mano.
+ * Ingresso: headline da sinistra → fotografia in dissolvenza → navbar
+ * dall'alto → lede, bottoni e feature dal basso.
  */
 export function Hero() {
   const ref = useGsap<HTMLElement>((mm, scope) => {
@@ -103,8 +104,7 @@ export function Hero() {
       tl.fromTo(q("[data-hero-lede]"), { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1 }, 1.45)
         .fromTo(q("[data-hero-cta]"), { y: 48, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.12 }, stacked ? 0.5 : 1.6)
         .fromTo(q("[data-hero-feature]"), { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 1.9)
-        .fromTo(q("[data-hero-bottom]"), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 2.15)
-        .fromTo(q("[data-hero-arch]"), { yPercent: 40, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 1.4 }, 1.85);
+        .fromTo(q("[data-hero-bottom]"), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1 }, 2.15);
 
       // 5. Below lg the handwritten line closes the hero, once everything else
       //    has settled.
@@ -142,7 +142,6 @@ export function Hero() {
     mm.add("(min-width: 64rem) and (prefers-reduced-motion: no-preference)", () => {
       const st = { trigger: scope, start: "top top", end: "bottom top", scrub: 1 };
       gsap.to(q("[data-hero-float-wrap]"), { yPercent: -18, ease: "none", scrollTrigger: st });
-      gsap.to(q("[data-hero-arch]"), { yPercent: 30, ease: "none", scrollTrigger: st });
     });
   });
 
@@ -151,28 +150,41 @@ export function Hero() {
       {/* Soft veil for the opening dissolve */}
       <div data-hero-veil aria-hidden="true" className="pointer-events-none absolute inset-0 z-30 bg-ivory opacity-0" />
 
-      {/* Photograph: full-bleed on desktop, top block on mobile */}
-      <div data-hero-photo className="relative h-[38svh] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[64%]">
+      {/* La fotografia è lo sfondo dell'hero, non un riquadro accanto al testo.
+          Sotto lg è una banda in proporzione esatta 3:2 — la stessa
+          dell'immagine, quindi il gruppo si vede per intero senza ritagli.
+          Da lg in su occupa tutta la sezione dietro al testo: a tutta
+          larghezza l'inquadratura tiene tutte e dieci le figure, mentre il
+          vecchio pannello al 64% ne mostrava solo il 68% e tagliava le due
+          ai bordi. I veli di crema la "sfumano nello sfondo" come chiede il
+          brief, invece di lasciarla stagliata. */}
+      <div data-hero-photo className="relative aspect-[3/2] w-full overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
         <img
           src="/images/hero-photo.webp"
           alt={hero.photoAlt}
           width={2000}
-          height={1125}
+          height={1328}
           fetchPriority="high"
-          className="h-full w-full object-cover object-[70%_30%] will-change-transform lg:object-[60%_35%]"
+          className="h-full w-full object-cover object-[50%_30%] will-change-transform"
         />
-        {/* Fade into the page ground */}
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/25 to-transparent lg:bg-gradient-to-r lg:from-ivory lg:via-ivory/40 lg:via-30% lg:to-transparent lg:to-60%" />
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ivory/70 to-transparent" />
+        {/* Sotto lg sfuma verso il basso; da lg sfuma verso sinistra, dove sta il testo */}
+        {/* Curva tarata sui pixel dell'immagine: al bordo destro del lede
+            lascia 5.05:1 di contrasto, poi si azzera entro il 58% della
+            larghezza — da lì in poi la fotografia si vede piena. */}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/30 to-transparent lg:bg-gradient-to-r lg:from-ivory lg:via-ivory/88 lg:via-44% lg:to-transparent lg:to-58%" />
+        {/* Il bordo inferiore si scioglie nella pagina: è il gradiente hero dell'originale */}
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-2/5" style={{ backgroundImage: "var(--gradient-hero)" }} />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ivory/85 to-transparent" />
 
         {/* Handwritten accent. Below lg it sits centre-left over the
             photograph instead of pinned to the top corner; the wrapper owns the
             placement so GSAP is free to transform the paragraph itself. */}
         <div className="pointer-events-none absolute left-[6%] top-1/2 w-max -translate-y-1/2 lg:left-auto lg:right-[7%] lg:top-[16%] lg:translate-y-0">
+          <SparkleField count={7} seed={3} tone="gold" minSize={7} maxSize={16} className="!-inset-10" />
           <p
             data-hero-float
             data-hero-script
-            className="script rotate-[-8deg] text-left text-[clamp(1.6rem,3vw,2.75rem)] text-[#8a6a4e] lg:text-right"
+            className="script rotate-[-8deg] text-left text-[clamp(1.6rem,3vw,2.75rem)] text-clay-deep lg:text-right"
             aria-hidden="true"
           >
             {hero.script.map((l) => (
@@ -187,6 +199,10 @@ export function Hero() {
         </div>
         <p className="sr-only">{hero.script.join(". ")}</p>
       </div>
+
+      {/* Luce dorata, sopra la fotografia: la scalda invece di restarle dietro */}
+      <Glow tone="gold" size="40rem" intensity={0.3} duration={24} className="-left-40 top-[4%]" />
+      <Glow tone="sage" size="30rem" intensity={0.22} duration={30} delay={4} className="-left-24 bottom-[-6rem]" />
 
       <div className="container-x relative flex min-h-0 flex-col pb-10 pt-6 lg:h-[100svh] lg:justify-between lg:pb-[min(2rem,3svh)] lg:pt-[calc(var(--nav-h)+min(2.5rem,4svh))]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
@@ -217,7 +233,7 @@ export function Hero() {
             </p>
             <div className="order-2 mt-7 flex flex-wrap items-center gap-3 lg:mt-[min(2rem,3svh)]">
               <span data-hero-cta className="inline-block">
-                <Button to={hero.primary.to} variant="primary" size="lg">
+                <Button to={hero.primary.to} variant="primary" size="lg" highlight="quiet">
                   {hero.primary.label}
                 </Button>
               </span>
@@ -234,7 +250,7 @@ export function Hero() {
                 const Icon = ICONS[f.icon as keyof typeof ICONS];
                 return (
                   <li key={f.text.join(" ")} data-hero-feature className="flex items-center gap-3 sm:px-5 sm:first:pl-0">
-                    <Icon className="h-7 w-7 shrink-0 text-[#8a6a4e]" strokeWidth={1.2} aria-hidden="true" />
+                    <Icon className="h-7 w-7 shrink-0 text-clay-deep" strokeWidth={1.2} aria-hidden="true" />
                     <span className="text-[0.85rem] leading-snug text-ink/80 lg:text-[min(0.85rem,1.75svh)]">
                       {f.text[0]}
                       <br />
@@ -280,14 +296,6 @@ export function Hero() {
         <Floats />
       </div>
 
-      {/* Arch image peeking from the bottom edge */}
-      <figure
-        data-hero-arch
-        className="pointer-events-none absolute -bottom-1 left-[52%] hidden w-[clamp(16rem,22vw,22rem)] -translate-x-1/2 overflow-hidden rounded-t-full lg:block [@media(max-height:700px)]:!hidden"
-        aria-hidden="true"
-      >
-        <img src="/images/garden-circle.webp" alt="" width={1000} height={1333} loading="lazy" className="h-[11svh] w-full object-cover object-[50%_20%]" />
-      </figure>
     </section>
   );
 }

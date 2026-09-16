@@ -98,7 +98,7 @@ export function Preloader() {
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center will-change-transform"
       style={{
         background:
-          "radial-gradient(120% 90% at 50% 40%, #FDF9F4 0%, var(--color-ivory) 55%, var(--color-ivory-2) 100%)",
+          "radial-gradient(120% 90% at 50% 40%, #FFFDF6 0%, var(--color-ivory) 55%, var(--color-ivory-2) 100%)",
       }}
     >
       <div className="w-[min(80vw,42rem)]">

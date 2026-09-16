@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { manifesto } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
+import { Glow } from "@/components/Atmosphere";
 
 const HIGHLIGHT = new Set(manifesto.highlights.map((w) => w.toLowerCase()));
 
@@ -48,8 +49,11 @@ export function Manifesto() {
   const words = manifesto.statement.split(" ");
 
   return (
-    <section ref={ref} className="relative bg-ivory-2 text-ink h-[240vh] lg:h-[300vh] motion-reduce:!h-auto" aria-labelledby="manifesto-title">
+    <section ref={ref} className="relative ground-sage text-ink h-[240vh] lg:h-[300vh] motion-reduce:!h-auto" aria-labelledby="manifesto-title">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden pt-[var(--nav-h)] pb-6 motion-reduce:!static motion-reduce:!h-auto motion-reduce:py-[clamp(5rem,12vw,11rem)]">
+        {/* Due luci lentissime: la sezione non è mai del tutto ferma */}
+        <Glow tone="cream" size="48rem" intensity={0.8} duration={28} className="-left-40 -top-40" />
+        <Glow tone="gold" size="36rem" intensity={0.3} duration={34} delay={7} className="-right-32 -bottom-32" />
         <div className="container-x relative">
           <p data-m-label className="label">
             {manifesto.label}

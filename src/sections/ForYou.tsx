@@ -110,14 +110,14 @@ export function ForYou() {
           ))}
 
           {/* Closing panel */}
-          <div className="flex w-[80vw] shrink-0 snap-start flex-col justify-center rounded-[1.5rem] bg-ink p-8 text-ivory sm:w-[60vw] md:w-[46vw] lg:row-span-2 lg:w-[28rem] lg:p-10">
-            <p className="label label-on-dark">Ti sei riconosciuta?</p>
+          <div className="flex w-[80vw] shrink-0 snap-start flex-col justify-center ground-sage rounded-[1.5rem] p-8 text-ink sm:w-[60vw] md:w-[46vw] lg:row-span-2 lg:w-[28rem] lg:p-10">
+            <p className="label">Ti sei riconosciuta?</p>
             <p className="display display-sm mt-4">Allora siamo nel posto giusto.</p>
             <div className="mt-8 flex flex-col gap-3">
-              <Button to={forYou.primary.to} variant="light">
+              <Button to={forYou.primary.to} variant="primary">
                 {forYou.primary.label}
               </Button>
-              <Button to={forYou.secondary.to} variant="ghost-light" arrow="up">
+              <Button to={forYou.secondary.to} variant="ghost" arrow="up">
                 {forYou.secondary.label}
               </Button>
             </div>

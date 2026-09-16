@@ -4,23 +4,56 @@
    Mila Ecosystem — design tokens
    Editorial · luxury minimalism · warm neutrals · restrained accent
 ------------------------------------------------------------------- */
+/* Palette ripresa dalla web app originale (mila-ecosystem-growth.lovable.app).
+   Il nome del token a sinistra è quello usato in questo progetto, il commento
+   a destra è il nome che ha nell'originale: i valori sono identici. */
 @theme {
-  --color-ivory: #faf4f3;
-  --color-ivory-2: #f4eae8;
-  --color-ivory-3: #ecdfdc;
-  --color-ink: #1c1a17;
-  --color-ink-2: #34302b;
-  --color-mute: #6f6860;
-  --color-mute-2: #9a928a;
-  --color-sage: #6f8a6f;
-  --color-sage-deep: #4d6450;
-  --color-sage-soft: #dfe6dc;
-  --color-rose: #8f5555;
-  --color-rose-soft: #e9d9d3;
-  --color-clay: #c9a98c;
+  /* Fondi chiari — mai scuri, alternati fra crema, sabbia e salvia */
+  --color-ivory: #fefaf1;         /* --cream / --background */
+  --color-ivory-2: #f4ecde;       /* --sand */
+  --color-ivory-3: #f2eadd;       /* --blush */
+  --color-blush-soft: #f9f5ec;    /* --blush-soft */
+  --color-blush-deep: #dccfbc;    /* --blush-deep */
+  --color-surface: #f3eee3;       /* --muted (superficie chiara; il token
+                                     di testo resta --color-mute) */
+
+  /* Inchiostro e testo */
+  --color-ink: #31261e;           /* --foreground / --ink */
+  --color-ink-2: #4a3a2c;
+  --color-mute: #675b4f;          /* --muted-foreground */
+  --color-mute-2: #9c8f80;
+  --color-line: #ded6cb;          /* --border */
+
+  /* Salvia — il colore del brand */
+  --color-sage: #b7cdb7;          /* --sage (tinta chiara) */
+  --color-sage-deep: #809b80;     /* --sage-deep / --primary */
+  --color-sage-soft: #e7f4e7;     /* --sage-soft / --secondary */
+  /* La velatura di salvia su cui l'originale appoggia Storia, Community e
+     footer: --sage-soft al 50% sopra la crema, risolto in tinta piatta. */
+  --color-sage-wash: #f3f7ec;
+  /* Un gradino più scuro, riservato ai fondi che portano testo chiaro:
+     --sage-deep con testo crema dà 2.91:1, sotto il minimo WCAG AA.
+     Questo sta a 4.55:1 e resta riconoscibile come la stessa salvia. */
+  --color-sage-cta: #5f7a5f;
+
+  /* Accenti caldi — l'oro va usato con parsimonia */
+  --color-gold: #d9b06b;          /* --gold */
+  --color-gold-deep: #a8813f;
+  --color-clay: #d6ae93;          /* --clay */
+  --color-clay-deep: #8a6a4e;
+  --color-terracotta: #cf7347;    /* --terracotta */
+
+  /* Accento "magico", tenuto in riserva */
+  --color-mystic: #9a6ec9;        /* --mystic */
+  --color-mystic-deep: #5c2f95;   /* --mystic-deep */
+  --color-mystic-soft: #f3eaff;   /* --mystic-soft */
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  --shadow-soft: 0 1px 2px #392a1e0a, 0 8px 24px #392a1e0f;
+  --shadow-elegant: 0 12px 40px -12px #809b8033;
+  --shadow-warm: 0 20px 60px -20px #dccfbc4d;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -32,7 +65,15 @@
 :root {
   --nav-h: 4.5rem;
   --gutter: clamp(1.25rem, 4vw, 4rem);
+  --radius: 1rem;
   color-scheme: light;
+
+  /* Gradienti dell'originale, inclusa la luce dorata */
+  --gradient-warm: linear-gradient(135deg, #fefaf1 0%, #f4ecde 100%);
+  --gradient-sage: linear-gradient(135deg, #eef9ee 0%, #c8dfc8 100%);
+  --gradient-blush: linear-gradient(135deg, #eef9ee 0%, #d2e4d2 100%);
+  --gradient-hero: linear-gradient(180deg, #fcf4e800 0%, #fcf4e8d9 70%, #fefaf1 100%);
+  --gradient-glow: radial-gradient(circle at 30% 20%, #d9b06b40, transparent 60%);
 }
 
 html {
@@ -54,7 +95,7 @@ body {
 
 #root { overflow-x: clip; }
 
-::selection { background: #1c1a17; color: #faf4f3; }
+::selection { background: #31261e; color: #fefaf1; }
 
 img { display: block; }
 
@@ -68,65 +109,76 @@ img { display: block; }
 /* ------------------------------------------------------------------
    Typography
 ------------------------------------------------------------------- */
+/* I titoli sono in Fraunces come nella web app originale: peso 400, spaziatura
+   appena negativa e interlinea aperta. Inter resta il font di UI e di lettura. */
 .display {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.94;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-variation-settings: "opsz" 144;
   text-wrap: balance;
 }
+/* Fraunces occupa più larghezza di Inter a parità di corpo: le scale sono
+   ricalibrate di conseguenza, con interlinee più aperte. */
 .display-xl {
-  font-size: clamp(3rem, 13vw, 5rem);
-}
-@media (min-width: 64rem) {
-  .display-xl { font-size: clamp(4rem, 8vw, 9rem); }
-}
-.display-hero {
-  font-size: clamp(2.5rem, 11vw, 4.5rem);
-  line-height: 0.98;
-}
-@media (min-width: 64rem) {
-  .display-hero { font-size: min(clamp(3rem, 4.4vw, 5.25rem), 8.4svh); }
-}
-.display-lg {
-  font-size: clamp(2.5rem, 8vw, 3.75rem);
-}
-@media (min-width: 64rem) {
-  .display-lg { font-size: clamp(3.5rem, 5.6vw, 6.25rem); }
-}
-.display-md {
-  font-size: clamp(2rem, 6.5vw, 3rem);
-  letter-spacing: -0.035em;
+  font-size: clamp(2.6rem, 11.5vw, 4.4rem);
   line-height: 1;
 }
 @media (min-width: 64rem) {
-  .display-md { font-size: clamp(2.75rem, 3.6vw, 4rem); }
+  .display-xl { font-size: clamp(3.5rem, 7vw, 7.75rem); }
 }
-.display-sm {
-  font-size: clamp(1.5rem, 4.5vw, 2rem);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+.display-hero {
+  font-size: clamp(2.2rem, 9.6vw, 3.9rem);
+  line-height: 1.06;
 }
 @media (min-width: 64rem) {
-  .display-sm { font-size: clamp(1.75rem, 2.2vw, 2.5rem); }
+  .display-hero { font-size: min(clamp(2.6rem, 3.85vw, 4.6rem), 7.6svh); }
+}
+.display-lg {
+  font-size: clamp(2.2rem, 7vw, 3.3rem);
+}
+@media (min-width: 64rem) {
+  .display-lg { font-size: clamp(3rem, 4.9vw, 5.5rem); }
+}
+.display-md {
+  font-size: clamp(1.8rem, 5.8vw, 2.65rem);
+  letter-spacing: -0.018em;
+  line-height: 1.08;
+}
+@media (min-width: 64rem) {
+  .display-md { font-size: clamp(2.4rem, 3.15vw, 3.5rem); }
+}
+.display-sm {
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+}
+@media (min-width: 64rem) {
+  .display-sm { font-size: clamp(1.6rem, 2vw, 2.25rem); }
 }
 
+/* Ora che i titoli sono già in Fraunces, l'accento si distingue per corsivo e
+   colore salvia anziché per cambio di famiglia. */
 .serif-accent {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   font-variation-settings: "opsz" 144;
 }
 
+/* Nell'originale le etichette di sezione sono Inter 600 in salvia scura. */
 .label {
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-mute);
+  color: var(--color-sage-deep);
 }
-.label-on-dark { color: rgba(245, 241, 234, 0.55); }
+.label-on-dark { color: rgba(254, 250, 241, 0.6); }
 
 .lede {
   font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
@@ -159,8 +211,27 @@ img { display: block; }
 
 .section-pad { padding-block: clamp(5rem, 12vw, 11rem); }
 
-.hairline { border-color: rgba(28, 26, 23, 0.12); }
-.hairline-on-dark { border-color: rgba(245, 241, 234, 0.14); }
+/* Fondo salvia pieno — nell'originale porta il Manifesto e "Costruiamo insieme" */
+.ground-sage { background-image: var(--gradient-sage); }
+
+.hairline { border-color: var(--color-line); }
+.hairline-on-dark { border-color: rgba(254, 250, 241, 0.14); }
+
+/* ------------------------------------------------------------------
+   Dettagli dorati — con moderazione: un filo di luce, mai una campitura
+------------------------------------------------------------------- */
+.rule-gold {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.55;
+}
+.text-gilded {
+  background: linear-gradient(95deg, var(--color-gold-deep), var(--color-gold) 45%, var(--color-gold-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 /* ------------------------------------------------------------------
    Reveal primitives (GSAP drives the values; these are safe defaults)
@@ -229,16 +300,73 @@ img { display: block; }
 .btn .btn-arrow { transition: transform 0.5s var(--ease-premium); }
 .btn:hover .btn-arrow { transform: translateX(4px); }
 
-.btn-primary { background: var(--color-ink); color: var(--color-ivory); }
-.btn-primary::before { background: var(--color-sage-deep); }
-.btn-ghost { background: transparent; color: var(--color-ink); border: 1px solid rgba(28, 26, 23, 0.22); }
+.btn-primary { background: var(--color-sage-cta); color: var(--color-ivory); }
+.btn-primary::before { background: var(--color-ink); }
+.btn-ghost { background: transparent; color: var(--color-ink); border: 1px solid rgba(49, 38, 30, 0.22); }
 .btn-ghost::before { background: var(--color-ink); }
 .btn-ghost:hover { color: var(--color-ivory); border-color: var(--color-ink); }
 .btn-light { background: var(--color-ivory); color: var(--color-ink); }
 .btn-light::before { background: #ffffff; }
-.btn-ghost-light { background: transparent; color: var(--color-ivory); border: 1px solid rgba(245, 241, 234, 0.3); }
+.btn-ghost-light { background: transparent; color: var(--color-ivory); border: 1px solid rgba(254, 250, 241, 0.3); }
 .btn-ghost-light::before { background: var(--color-ivory); }
 .btn-ghost-light:hover { color: var(--color-ink); border-color: var(--color-ivory); }
+
+/* ------------------------------------------------------------------
+   CTA preziose — contorno dorato, alone, riflesso, respiro
+   Riservate alle pochissime azioni che devono attirare lo sguardo.
+   Il respiro sta sul contenitore e non sul bottone: `.btn` usa già
+   `transform` per il sollevamento in hover e i due si annullerebbero.
+------------------------------------------------------------------- */
+.cta-gilded {
+  position: relative;
+  display: inline-flex;
+  animation: cta-breath 5.2s var(--ease-soft) infinite;
+}
+.cta-halo {
+  position: absolute;
+  inset: -0.65rem;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgba(217, 176, 107, 0.6), rgba(217, 176, 107, 0));
+  filter: blur(9px);
+  animation: cta-halo 4.6s var(--ease-soft) infinite;
+}
+.btn-gilded {
+  box-shadow:
+    inset 0 0 0 1px rgba(217, 176, 107, 0.85),
+    0 10px 30px -14px rgba(217, 176, 107, 0.9);
+}
+/* Un riflesso che attraversa il bottone ogni tanto, non di continuo. */
+.btn-gilded::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 42%, rgba(255, 248, 228, 0.45) 50%, transparent 58%);
+  transform: translateX(-140%) skewX(-18deg);
+  animation: atmo-sheen 6.5s var(--ease-soft) infinite;
+  animation-delay: 1.6s;
+}
+
+@keyframes cta-breath {
+  0%,
+  100% { transform: scale(1); }
+  50%  { transform: scale(1.018); }
+}
+@keyframes cta-halo {
+  0%,
+  100% { transform: scale(0.92); opacity: 0.4; }
+  50%  { transform: scale(1.08); opacity: 0.95; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-gilded,
+  .cta-halo { animation: none; }
+  .cta-halo { opacity: 0.6; }
+  .btn-gilded::after { display: none; }
+}
 
 .card-hover {
   transition: transform 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
@@ -281,6 +409,70 @@ img { display: block; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+}
+
+/* ------------------------------------------------------------------
+   Atmosfera — bagliori, brillantini, riflessi
+   Solo transform/opacity. Ogni gruppo parte in pausa e viene acceso da
+   components/Atmosphere.tsx quando entra in campo.
+------------------------------------------------------------------- */
+@keyframes atmo-breathe {
+  0%,
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.5; }
+  50%  { transform: translate3d(2.5%, -3.5%, 0) scale(1.16); opacity: 1; }
+}
+@keyframes atmo-twinkle {
+  0%,
+  100% { opacity: 0; transform: scale(0.45) rotate(0deg); }
+  10%  { opacity: 0.95; transform: scale(1) rotate(14deg); }
+  24%  { opacity: 0.2; transform: scale(0.75) rotate(26deg); }
+  38%  { opacity: 0.8; transform: scale(1.06) rotate(38deg); }
+  62%  { opacity: 0; transform: scale(0.45) rotate(54deg); }
+}
+@keyframes atmo-sheen {
+  0%   { transform: translateX(-135%) skewX(-18deg); }
+  100% { transform: translateX(135%) skewX(-18deg); }
+}
+
+.atmo-glow {
+  animation-name: atmo-breathe;
+  animation-timing-function: var(--ease-soft);
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  filter: blur(22px);
+}
+.atmo-spark {
+  animation-name: atmo-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  opacity: 0;
+}
+[data-atmo="on"].atmo-glow,
+[data-atmo="on"] .atmo-spark { animation-play-state: running; }
+
+.sheen { position: relative; isolation: isolate; }
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 40%, rgba(255, 253, 246, 0.5) 50%, transparent 60%);
+  transform: translateX(-135%) skewX(-18deg);
+  animation: atmo-sheen 8s var(--ease-soft) infinite;
+  animation-delay: 2.5s;
+  animation-play-state: paused;
+}
+.sheen[data-atmo="on"]::after { animation-play-state: running; }
+
+/* Chi chiede meno movimento vede la stessa atmosfera, ferma. */
+@media (prefers-reduced-motion: reduce) {
+  .atmo-glow,
+  .atmo-spark { animation: none !important; }
+  .atmo-glow { opacity: 0.7; }
+  .atmo-spark { opacity: 0.5; }
+  .sheen::after { display: none; }
 }
 
 /* Scroll indicator */
@@ -346,7 +538,7 @@ img { display: block; }
   }
   .eco-letter:hover {
     transform: translateY(-0.11em);
-    color: var(--color-sage);
+    color: var(--color-sage-deep);
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@ import { community } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
 import { Button } from "@/components/Button";
 import { SplitWords } from "@/components/Split";
+import { Glow } from "@/components/Atmosphere";
 
 const [imgA, imgB, imgC, imgD, imgE] = community.images;
 
@@ -39,8 +40,10 @@ export function Community() {
   });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ivory section-pad" aria-labelledby="community-title">
-      <div className="container-x">
+    <section ref={ref} className="relative overflow-hidden bg-sage-wash section-pad" aria-labelledby="community-title">
+      <Glow tone="gold" size="36rem" intensity={0.28} duration={27} className="-right-28 top-[6%]" />
+
+      <div className="container-x relative">
         <div data-c-stage className="relative grid grid-cols-12 gap-3 md:gap-5">
           {/* Headline block — overlaps the top of the collage */}
           <div className="relative z-20 col-span-12 md:col-span-8 md:pr-8">
