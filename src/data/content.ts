@@ -266,7 +266,7 @@ export const future = {
     { title: "Libreria", description: "I miei libri, uno dopo l'altro: da leggere, scaricare, tenere.", to: routes.libreria },
     { title: "Area personale", description: "Il tuo spazio: percorsi acquistati, diario, prenotazioni, bacheca.", to: routes.dashboard },
     { title: "Millina", description: "La mia piccola assistente digitale: ti orienta, ti suggerisce il passo dopo." },
-    { title: "Business", description: "Triskell Academy e Agency: imparare le competenze o delegare a noi." },
+    { title: "Business", description: "Triskell Academy e Agency: imparare le competenze o delegare a noi.", to: routes.business },
     { title: "Viaggi", description: "L'ecosistema che esce dallo schermo e diventa un posto dove ritrovarsi." },
     { title: "Eventi", description: "Live, workshop e incontri con le professioniste dell'ecosistema." },
   ] satisfies FutureArea[],
@@ -420,8 +420,8 @@ export const levels = {
  * Il brief lo mette esplicitamente "a parte", e non è un dettaglio di
  * posizione: è l'unica cosa della pagina che non ha un contenuto definito.
  * Tutto il resto risponde a "cosa c'è dentro"; questo risponde a "cosa
- * decidiamo insieme". Per questo le voci qui sotto non sono cio' che
- * comprende, ma cio' che resta aperto — e i suggerimenti sono domande, non
+ * decidiamo insieme". Per questo le voci qui sotto non sono ciò che
+ * comprende, ma ciò che resta aperto — e i suggerimenti sono domande, non
  * risposte.
  */
 export const custom = {
@@ -640,6 +640,51 @@ export const salotto = {
   },
   cta: { label: "Entra nella community", to: routes.community },
   secondary: { label: "Prima vuoi conoscermi? Prenota la call", to: routes.call },
+};
+
+/**
+ * Punto 20 del brief: l'area personale.
+ *
+ * Due istruzioni precise. La prima: "non deve essere semplicemente il posto in
+ * cui trovare ciò che è stato acquistato" — quindi la pagina apre dicendo
+ * cosa NON è, prima di cosa sarà. La seconda: "per ora eviterei il sistema a
+ * punti e gamification" — l'app originale ha livelli, punti e badge (Seme,
+ * Germoglio); qui non ci sono, e l'assenza è dichiarata invece che
+ * silenziosa, perché in un prodotto di crescita personale rinunciare al
+ * punteggio è una posizione, non una mancanza.
+ *
+ * Le zone qui sotto sono la forma dell'area, non i suoi contenuti: ogni voce
+ * riassume in una riga un punto fra il 21 e il 31, che li costruiranno. Non
+ * c'è nessun dato simulato — niente barre di avanzamento finte, niente
+ * prenotazioni inventate: mostrare dati falsi in un'anteprima significa
+ * chiedere a chi guarda di fingere che siano veri.
+ */
+export const dashboard = {
+  label: "Area personale",
+  title: ["Il tuo spazio", "dentro l'ecosistema."],
+  notice: "L'area personale è in costruzione. Qui sotto c'è la mappa di quello che ci sarà.",
+  notArchive: {
+    title: "Non è uno scaffale.",
+    text:
+      "Non è il posto dove finisce quello che hai comprato. È lo spazio in cui il percorso continua anche nei giorni in cui non stai studiando niente: un diario aperto, una frase, una prenotazione, qualcuno a cui chiedere.",
+  },
+  noPoints: {
+    title: "Niente punti, niente livelli.",
+    text:
+      "Non troverai badge da collezionare né classifiche da scalare. Il progresso qui non è un punteggio: è quello che noti in te quando riapri il diario di tre mesi fa.",
+  },
+  zonesLabel: "Cosa ci sarà",
+  zones: [
+    { name: "Bentornata", text: "L'apertura: il tuo nome, la frase del giorno, e da dove riprendere." },
+    { name: "Da dove vuoi partire", text: "Il quiz sulle aree della tua vita, e Millina che ne legge il risultato con te." },
+    { name: "I tuoi percorsi", text: "Corsi, workbook, registrazioni e bonus, ciascuno con il punto in cui sei rimasta." },
+    { name: "La tua bacheca", text: "Le call prenotate, le live incluse nel percorso, gli eventi a cui puoi partecipare." },
+    { name: "Il diario", text: "Uno spazio privato per scrivere, con domande che aiutano a cominciare." },
+    { name: "Millina", text: "L'assistente che conosce l'ecosistema e ti dice qual è il passo successivo." },
+    { name: "Invita un'amica", text: "Il tuo codice personale, e quello che ricevi quando qualcuna entra grazie a te." },
+  ],
+  cta: { label: "Esplora i percorsi", to: routes.percorsi },
+  secondary: { label: "Parliamone in call", to: routes.call },
 };
 
 export const story = {
