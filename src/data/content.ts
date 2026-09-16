@@ -309,6 +309,37 @@ export const roads = {
   secondary: { label: "Non sai da dove partire? Prenota la call", to: routes.call },
 };
 
+/**
+ * Punto 12 del brief: Mila Reset, la porta d'ingresso in autonomia.
+ * I testi delle singole voci sono scritti a partire dall'elenco del brief e
+ * vanno riletti da Mila: descrivono cosa sarà dentro, non cosa c'è oggi.
+ */
+export const milaReset = {
+  kicker: "Da sola, al tuo ritmo",
+  title: "Mila Reset",
+  lede:
+    "Il punto d'ingresso più semplice dell'ecosistema: pensato per chi vuole cominciare a lavorare su di sé in autonomia, senza call e senza impegni fissi.",
+  pitch: "Non sai ancora quale percorso faccia per te? Parti da qui.",
+  itemsLabel: "Cosa trovi dentro",
+  items: [
+    { title: "Workbook", text: "Pagine da compilare, non da leggere: sono le domande a fare il lavoro." },
+    { title: "Audio", text: "Da ascoltare camminando, in cucina, prima di dormire." },
+    { title: "La Ruota della Vita", text: "L'esercizio che mette a fuoco da quale area conviene partire." },
+    { title: "Esercizi", text: "Pratiche brevi, da fare quando serve a te e non quando è previsto." },
+    { title: "Mini guide", text: "Un tema alla volta, chiuso in poche pagine." },
+    { title: "Mini corsi", text: "Lezioni corte, con un ordine e un punto d'arrivo." },
+    { title: "Ebook", text: "Da leggere con calma, sul divano o in viaggio." },
+    { title: "Attività autonome", text: "Tutto si fa quando vuoi tu, al ritmo che hai davvero." },
+  ],
+  access: {
+    label: "La parte più accessibile",
+    text:
+      "Mila Reset è pensato per essere leggero: nell'impegno che chiede e nel prezzo. È il modo meno costoso di capire se l'ecosistema fa per te.",
+  },
+  cta: { label: "Scarica ora", to: routes.risorse },
+  secondary: { label: "Non sai da dove partire? Prenota la call", to: routes.call },
+};
+
 export const story = {
   label: "La storia che ci muove",
   title: ["La storia di mia nonna,", "a cui dedico tutto questo."],

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "@/lib/gsap";
 import { onIntroDone } from "@/lib/intro";
 import { Preloader } from "@/components/Preloader";
 import Home from "@/pages/Home";
+import Percorsi from "@/pages/Percorsi";
 import Placeholder from "@/pages/Placeholder";
 
 function ScrollManager() {
@@ -37,6 +38,7 @@ export default function App() {
       <ScrollManager />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/percorsi" element={<Percorsi />} />
         <Route path="*" element={<Placeholder />} />
       </Routes>
     </>
