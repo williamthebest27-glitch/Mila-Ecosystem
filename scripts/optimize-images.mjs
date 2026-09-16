@@ -16,6 +16,9 @@ const jobs = [
   // Hero di gruppo: sorgente 2048x1360, tenuta larga perche occupa il 64%
   // del viewport a schermo intero.
   ["hero-group.png", "hero-photo", 2000, null, "centre"],
+  // La figura al centro della sezione Ecosistema: PNG con alpha, quindi il
+  // WebP conserva la trasparenza e si compone sul fondo crema.
+  ["dea.png", "dea", 1100, null, "centre"],
 ];
 
 await mkdir("public/images", { recursive: true });

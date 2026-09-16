@@ -224,6 +224,12 @@ export const ecosystem = {
     "È un ecosistema che si espanderà nel tempo: nuove aree, strumenti e persone si aggiungeranno per accompagnarti in qualunque fase.",
   primary: { label: "Esplora i percorsi", to: routes.percorsi },
   secondary: { label: "Risorse gratuite", to: routes.risorse },
+  /** La scena del punto 10: la figura al centro, avvolta dalla luce. */
+  stage: {
+    imageAlt:
+      "Una giovane donna in tunica di lino verde salvia monospalla, in piedi al centro dell'ecosistema",
+    hint: "Scorri: la luce la avvolge e l'ecosistema si apre",
+  },
 };
 
 export type FutureArea = {

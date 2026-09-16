@@ -4,7 +4,7 @@ import { areas, ecosystem, routes } from "@/data/content";
 import { useGsap, gsap } from "@/hooks/useGsap";
 import { Button } from "@/components/Button";
 import { Link } from "@/components/Link";
-import { Glow, Sparkles } from "@/components/Atmosphere";
+import { EcosystemStage } from "./EcosystemStage";
 
 type Node = {
   name: string;
@@ -84,113 +84,6 @@ export function Ecosystem() {
         { y: 30, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "premium", scrollTrigger: { trigger: q("[data-eco-areas]"), start: "top 88%", once: true } },
       );
-      gsap.fromTo(
-        q("[data-eco-word]"),
-        { scale: 0.85, autoAlpha: 0 },
-        { scale: 1, autoAlpha: 1, duration: 1.6, ease: "premium", scrollTrigger: { trigger: q("[data-eco-stage]"), start: "top 75%", once: true } },
-      );
-    });
-
-    mm.add("(min-width: 64rem) and (prefers-reduced-motion: no-preference)", () => {
-      const stage = q<HTMLElement>("[data-eco-stage]")[0];
-      Array.from(stage.querySelectorAll<HTMLElement>("[data-eco-node]")).forEach((node, i) => {
-        const n = NODES[i];
-        gsap.fromTo(
-          node,
-          { x: n.from.x, y: n.from.y, rotate: n.rotate * 3, autoAlpha: 0 },
-          { x: 0, y: 0, rotate: n.rotate, autoAlpha: 1, duration: 1.4, delay: i * 0.08, ease: "premium", scrollTrigger: { trigger: stage, start: "top 70%", once: true } },
-        );
-        gsap.fromTo(
-          node.firstElementChild,
-          { y: (n.speed - 1) * -140 },
-          { y: (n.speed - 1) * 140, ease: "none", scrollTrigger: { trigger: stage, start: "top bottom", end: "bottom top", scrub: 1 } },
-        );
-      });
-      q<HTMLElement>("[data-eco-img]").forEach((img, i) => {
-        gsap.fromTo(
-          img,
-          { y: 60 * (i + 1), autoAlpha: 0 },
-          { y: -60 * (i + 1), autoAlpha: 1, ease: "none", scrollTrigger: { trigger: stage, start: "top 80%", end: "bottom top", scrub: 1 } },
-        );
-      });
-    });
-
-    // Hovering a card floats it to the middle of the screen and opens it, then
-    // sends it home when the pointer leaves. Mouse only: on a wide touch screen
-    // a tap would strand the card at the centre with no pointermove to release
-    // it. The return is driven by pointermove against the card's home box
-    // rather than by pointerleave, because the card slides out from under the
-    // cursor the instant it starts moving and would otherwise flip-flop.
-    mm.add("(min-width: 64rem) and (hover: hover) and (prefers-reduced-motion: no-preference)", () => {
-      const nodes = q<HTMLElement>("[data-eco-stage] [data-eco-node]");
-      let active: { node: HTMLElement; index: number; home: DOMRect } | null = null;
-
-      const within = (r: DOMRect, x: number, y: number, pad = 10) =>
-        x >= r.left - pad && x <= r.right + pad && y >= r.top - pad && y <= r.bottom + pad;
-
-      const send = (node: HTMLElement, index: number) => {
-        if (active?.node === node) return;
-        if (active) home();
-        const rect = node.getBoundingClientRect();
-        // The panel opens downward, so the card's centre drops by half of what
-        // the panel adds. Aim at where the centre will end up, not where it is.
-        const panel = node.querySelector<HTMLElement>(".card-panel > div");
-        const grows = panel ? panel.scrollHeight : 0;
-        const tall = rect.height + grows;
-        active = { node, index, home: rect };
-        setOpenIdx(index);
-        gsap.set(node, { zIndex: 60 });
-        gsap.to(node, {
-          x: window.innerWidth / 2 - (rect.left + rect.width / 2),
-          y: window.innerHeight / 2 - (rect.top + rect.height / 2 + grows / 2),
-          scale: Math.min(1.32, (window.innerHeight * 0.82) / tall),
-          rotate: 0,
-          duration: 0.85,
-          ease: "premium",
-          overwrite: "auto",
-        });
-      };
-
-      const home = () => {
-        if (!active) return;
-        const { node, index } = active;
-        active = null;
-        setOpenIdx((v) => (v === index ? null : v));
-        gsap.to(node, {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotate: NODES[index].rotate,
-          duration: 0.8,
-          ease: "premium",
-          overwrite: "auto",
-          onComplete: () => gsap.set(node, { clearProps: "zIndex" }),
-        });
-      };
-
-      const onMove = (e: PointerEvent) => {
-        if (!active) return;
-        // Keep it out while the pointer is either still over where the card was
-        // or over the card itself, so the expanded card stays reachable.
-        if (within(active.home, e.clientX, e.clientY)) return;
-        if (within(active.node.getBoundingClientRect(), e.clientX, e.clientY)) return;
-        home();
-      };
-
-      const enters = nodes.map((node, i) => {
-        const fn = () => send(node, i);
-        node.addEventListener("pointerenter", fn);
-        return fn;
-      });
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("scroll", home, { passive: true });
-
-      return () => {
-        nodes.forEach((node, i) => node.removeEventListener("pointerenter", enters[i]));
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("scroll", home);
-        home();
-      };
     });
 
     mm.add("(max-width: 63.98rem) and (prefers-reduced-motion: no-preference)", () => {
@@ -227,7 +120,7 @@ export function Ecosystem() {
             Prima erano leggibili solo nella sezione "Le tre aree", molto più
             in basso: qui diventano la spina dorsale della sezione, e le
             schede che orbitano dichiarano a quale appartengono. */}
-        <ul data-eco-areas className="mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border hairline bg-line sm:grid-cols-3 lg:mt-16">
+        <ul data-eco-areas className="mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border hairline bg-line sm:grid-cols-3 lg:hidden motion-reduce:!grid">
           {areas.map((a) => (
             <li key={a.slug} data-eco-area className="bg-ivory p-6 lg:p-7">
               <span className="num label !text-[0.625rem]">{a.index}</span>
@@ -244,43 +137,8 @@ export function Ecosystem() {
           ))}
         </ul>
 
-        {/* Desktop stage */}
-        <div data-eco-stage className="relative mt-16 hidden h-[min(88vh,820px)] lg:block">
-          {/* La parola al centro sta dentro un alone dorato che pulsa piano */}
-          <Glow tone="gold" size="34rem" intensity={0.3} duration={21} className="left-[calc(50%-17rem)] top-[calc(50%-17rem)]" />
-          <Sparkles count={10} seed={7} tone="gold" minSize={6} maxSize={15} />
-          {/* Split per letter so each one lifts and greens under the pointer.
-              The paragraph stays pointer-events-none and only the glyphs opt
-              back in, so the gaps around the word never steal hovers from the
-              figure cards orbiting it. */}
-          <p
-            data-eco-word
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(4rem,9.2vw,9rem)] font-medium leading-none tracking-[-0.06em] text-ink"
-          >
-            {Array.from(ecosystem.word).map((ch, i) => (
-              <span key={i} className="eco-letter">
-                {ch}
-              </span>
-            ))}
-          </p>
-
-          {NODES.map((n, i) => (
-            <div key={n.name} data-eco-node className={`absolute z-10 w-[clamp(220px,17vw,270px)] hover:z-30 focus-within:z-30 ${n.pos}`}>
-              <FigureCard node={n} open={openIdx === i} onToggle={() => setOpenIdx((v) => (v === i ? null : i))} />
-            </div>
-          ))}
-
-          <figure data-eco-img className="absolute left-[21%] bottom-[18%] w-[9vw] max-w-[150px] overflow-hidden rounded-[1rem]">
-            <img src="/images/coaching-square.webp" alt="" width={900} height={900} loading="lazy" className="aspect-square w-full object-cover" />
-          </figure>
-          <figure data-eco-img className="absolute right-[13%] top-[18%] w-[8vw] max-w-[130px] overflow-hidden mask-arch-sm">
-            <img src="/images/garden-circle.webp" alt="" width={1000} height={1333} loading="lazy" className="aspect-[3/4] w-full object-cover" />
-          </figure>
-          <figure data-eco-img className="absolute right-[31%] bottom-[18%] w-[7vw] max-w-[110px] overflow-hidden mask-pebble">
-            <img src="/images/community-circle-crop.webp" alt="" width={900} height={1100} loading="lazy" className="aspect-[4/5] w-full object-cover" />
-          </figure>
-        </div>
+        {/* Punto 10: la figura al centro, avvolta dalla luce a spirale */}
+        <EcosystemStage />
 
         {/* Mobile / tablet composition */}
         <div className="mt-12 lg:hidden">
