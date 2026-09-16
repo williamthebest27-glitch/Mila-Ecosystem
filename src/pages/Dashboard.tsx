@@ -9,19 +9,23 @@ import { Button } from "@/components/Button";
 import { Link } from "@/components/Link";
 import { Glow } from "@/components/Atmosphere";
 import { SplitWords } from "@/components/Split";
+import { Millina } from "@/components/Millina";
+import { Daily } from "@/sections/dashboard/Daily";
+import { Wheel } from "@/sections/dashboard/Wheel";
+import { Diary } from "@/sections/dashboard/Diary";
 
 /**
  * Punto 20 — l'area personale.
  *
- * La pagina è un'anteprima dichiarata, non una dashboard finta. Non contiene
- * nessun dato simulato: niente barre di avanzamento, niente prenotazioni
- * inventate, niente nome utente di fantasia. Mostrare dati falsi in
- * un'anteprima significa chiedere a chi guarda di fingere che siano veri — e
- * rende impossibile distinguere, più avanti, quello che funziona da quello che
- * è ancora scenografia.
+ * Quattro zone funzionano davvero — la frase del giorno (24), Millina (21-22),
+ * la Ruota della Vita (23) e il diario (25) — e stanno in cima. Le altre
+ * aspettano l'accesso e gli acquisti, e restano descritte in fondo.
  *
- * Le zone sono la forma dell'area: ognuna riassume in una riga un punto fra il
- * 21 e il 31, che saranno a costruirla davvero.
+ * Nessun dato simulato, da nessuna parte: niente barre di avanzamento finte,
+ * niente prenotazioni inventate, niente nome utente di fantasia. Dati falsi in
+ * un'anteprima chiedono a chi guarda di fingere che siano veri, e rendono
+ * impossibile distinguere più avanti quello che funziona da quello che è
+ * ancora scenografia.
  */
 export default function Dashboard() {
   const revealRef = useReveal<HTMLDivElement>();
@@ -94,6 +98,24 @@ export default function Dashboard() {
           </div>
         </section>
 
+        {/* Le quattro zone che funzionano davvero, in cima. */}
+        <section className="relative overflow-x-clip bg-ivory pb-[clamp(3rem,7vw,5rem)] pt-[clamp(2.5rem,6vw,4rem)]">
+          <div className="container-x grid gap-5 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <Daily />
+            </div>
+            <div className="lg:col-span-7">
+              <Millina />
+            </div>
+            <div className="lg:col-span-7">
+              <Wheel />
+            </div>
+            <div className="lg:col-span-5">
+              <Diary />
+            </div>
+          </div>
+        </section>
+
         {/* Le due cose che il brief chiede di dire: cosa non è, e cosa
             deliberatamente non contiene. */}
         <section ref={revealRef} className="relative overflow-x-clip bg-ivory section-pad">
@@ -114,18 +136,15 @@ export default function Dashboard() {
             <p id="zones-title" className="label">
               {dashboard.zonesLabel}
             </p>
+            <p className="mt-4 max-w-2xl text-[0.95rem] leading-snug text-mute">{dashboard.zonesNote}</p>
 
-            <ul data-db-zones className="mt-10 grid gap-px overflow-hidden rounded-[1.5rem] border hairline bg-line sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
+            <ul data-db-zones className="mt-10 grid gap-px overflow-hidden rounded-[1.5rem] border hairline bg-line sm:grid-cols-2 lg:mt-14">
               {dashboard.zones.map((zone) => (
                 <li key={zone.name} data-db-zone className="bg-ivory p-7 lg:p-8">
                   <p className="display display-sm font-normal">{zone.name}</p>
                   <p className="mt-3 text-[0.92rem] leading-snug text-mute">{zone.text}</p>
                 </li>
               ))}
-              {/* L'ultima cella resta vuota: la griglia e' a tre colonne e le
-                  zone sono sette, quindi la chiude un respiro invece di un
-                  riempitivo. */}
-              <li aria-hidden="true" className="hidden bg-ivory-2/50 lg:block" />
             </ul>
 
             <div className="mt-14 flex flex-col items-center gap-5 text-center lg:mt-20">

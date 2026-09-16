@@ -662,7 +662,7 @@ export const salotto = {
 export const dashboard = {
   label: "Area personale",
   title: ["Il tuo spazio", "dentro l'ecosistema."],
-  notice: "L'area personale è in costruzione. Qui sotto c'è la mappa di quello che ci sarà.",
+  notice: "Frase del giorno, Millina, la Ruota della Vita e il diario funzionano già. Il resto aspetta l'accesso.",
   notArchive: {
     title: "Non è uno scaffale.",
     text:
@@ -673,14 +673,13 @@ export const dashboard = {
     text:
       "Non troverai badge da collezionare né classifiche da scalare. Il progresso qui non è un punteggio: è quello che noti in te quando riapri il diario di tre mesi fa.",
   },
-  zonesLabel: "Cosa ci sarà",
+  zonesLabel: "Quello che manca ancora",
+  zonesNote:
+    "Queste quattro zone aspettano l'accesso e gli acquisti: senza un account non c'è niente di vero da mostrare, e preferisco lo spazio vuoto a dei dati finti.",
   zones: [
-    { name: "Bentornata", text: "L'apertura: il tuo nome, la frase del giorno, e da dove riprendere." },
-    { name: "Da dove vuoi partire", text: "Il quiz sulle aree della tua vita, e Millina che ne legge il risultato con te." },
+    { name: "Bentornata", text: "Il tuo nome e il punto esatto in cui hai lasciato, ogni volta che rientri." },
     { name: "I tuoi percorsi", text: "Corsi, workbook, registrazioni e bonus, ciascuno con il punto in cui sei rimasta." },
     { name: "La tua bacheca", text: "Le call prenotate, le live incluse nel percorso, gli eventi a cui puoi partecipare." },
-    { name: "Il diario", text: "Uno spazio privato per scrivere, con domande che aiutano a cominciare." },
-    { name: "Millina", text: "L'assistente che conosce l'ecosistema e ti dice qual è il passo successivo." },
     { name: "Invita un'amica", text: "Il tuo codice personale, e quello che ricevi quando qualcuna entra grazie a te." },
   ],
   cta: { label: "Esplora i percorsi", to: routes.percorsi },
@@ -897,6 +896,35 @@ export const thoughts = {
     "Le radici delle donne che ti hanno preceduto sono ora le tue ali.",
   ],
 };
+
+/**
+ * Punto 24 del brief: la frase del giorno.
+ *
+ * Le prime otto sono quelle già sue, dalla sezione "Pensieri". Le altre sono
+ * scritte per riempire il serbatoio — servono almeno tre settimane perché la
+ * frase sembri davvero quotidiana e non un ciclo di pochi giorni — e vanno
+ * riviste da Mila. I temi sono quelli che indica: crescita, consapevolezza,
+ * femminilità, autostima, cambiamento, libertà, disciplina.
+ */
+export const dailyQuotes = [
+  ...thoughts.quotes,
+  "Cominciare male è comunque cominciare.",
+  "Il cambiamento non bussa: si siede accanto a te e aspetta che ti giri.",
+  "Puoi essere gentile e avere dei confini. Sono la stessa cosa.",
+  "Nessuno ti restituirà il tempo che passi a farti piccola.",
+  "La disciplina non è durezza: è il modo in cui ti tieni la parola.",
+  "Quello che rimandi a quando starai meglio è spesso ciò che ti farà stare meglio.",
+  "Non devi sentirti pronta. Devi solo cominciare da qualcosa di piccolo.",
+  "La libertà comincia il giorno in cui smetti di chiedere il permesso.",
+  "Ci sono giorni in cui l'unico progresso è non tornare indietro. Conta uguale.",
+  "Se ti riconosci solo negli sguardi degli altri, stai vivendo di riflesso.",
+  "Il corpo non è un progetto da finire: è la casa da cui guardi il mondo.",
+  "Chiedere aiuto è una competenza, non una resa.",
+  "Puoi cambiare idea su di te tutte le volte che serve.",
+  "L'autostima non è credere di essere brava. È smettere di doverlo dimostrare.",
+  "Ogni volta che scegli te stessa insegni a qualcuno che si può fare.",
+  "La versione di te che stai costruendo ha bisogno di tempo, non di fretta.",
+];
 
 export const finalCta = {
   lines: ["Torna a", "scegliere", "te stessa."],
